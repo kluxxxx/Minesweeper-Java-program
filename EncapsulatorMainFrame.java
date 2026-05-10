@@ -429,6 +429,24 @@ public class EncapsulatorMainFrame extends JFrame
     
     
     private String[] generateAbbreviation(String camelCase) {
+        final String[] REDUNDANCIES = {
+            "lng",
+            "int",
+            "shr",
+            "byt",
+            "dbl",
+            "flt",
+            "is",
+            "bol",
+            "chr",
+            "str",
+            "arr",
+            "lst"
+        };
+        for (String r: REDUNDANCIES) {
+            camelCase = camelCase.replace(r,"");
+        }
+        
         
         
         String currentToken = "";
@@ -440,7 +458,7 @@ public class EncapsulatorMainFrame extends JFrame
         for (char c : camelCase.toCharArray()) {
             
             if (Character.isUpperCase(c)) {
-                if (currentToken.length() > 0 && !currentToken.equals("is")) {
+                if (currentToken.length() > 0) {
                     abbrev += currentToken.toLowerCase().charAt(0);
                     methodName += currentToken.substring(0,1).toUpperCase() + currentToken.substring(1);
                     //System.out.println(methodName + ", " + currentToken);
@@ -743,10 +761,10 @@ public class EncapsulatorMainFrame extends JFrame
        
         
         if (CONTRIBUTORS.length < 1) {
-             signature += String.format("\n @author (Your name)");
+             signature += String.format("\n @AUTHOR (Your name)");
         }
         else if (CONTRIBUTORS.length > 1) {
-            signature += String.format("\n @author (Your name)");
+            signature += String.format("\n @AUTHOR (Your name)");
             signature += String.format("\n @CONTRIBUTORS: (");
                 for (int i = 0; i < CONTRIBUTORS.length; i++) {
                 signature += CONTRIBUTORS[i];
@@ -756,14 +774,14 @@ public class EncapsulatorMainFrame extends JFrame
             }
         }
         else {
-            signature += String.format("\n @author (%s)", CONTRIBUTORS[0]);
+            signature += String.format("\n @AUTHOR (%s)", CONTRIBUTORS[0]);
         }
         
         
         
         signature += ")";
         
-        signature += String.format("\n @date (%s)", today.toString().replace('-','/'));
+        signature += String.format("\n @DATE (%s)", today.toString().replace('-','/'));
         signature += "\n*/";
         
         signature += String.format("\npublic class %s {", this.className);
