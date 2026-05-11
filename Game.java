@@ -46,12 +46,12 @@ public class Game extends JPanel implements ActionListener{
         final Border RAISED = this.customBorder(0,true);
         final int PADDING = 10;
         
-        this.setBorder(RAISED);
+        this.setBorder(BorderUtils.raised(5,this));
         
         this.hud = new JPanel(null);
         this.hud.setLocation(PADDING,PADDING);
         this.hud.setSize(this.getWidth() - PADDING * 2, 100);
-        this.hud.setBorder(CustomBorders.generate(5,this.hud));
+        this.hud.setBorder(BorderUtils.raised(5,this.hud));
         this.add(this.hud);
         
         

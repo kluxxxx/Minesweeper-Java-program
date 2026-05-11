@@ -9,9 +9,9 @@ import javax.swing.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class CustomBorders 
+public class BorderUtils 
 {
-    public static Border generate(int t, JComponent c) {
+    public static Border raised(int t, JComponent c) {
         return new MatteBorder(t,t,t,t,bevelIcon(c));
     }
     
@@ -22,12 +22,10 @@ public class CustomBorders
             BufferedImage.TYPE_INT_ARGB
         );
         
+        int width = c.getWidth();
+        int height = c.getHeight();
         
-        
-        int[] mid1 = new int[] {
-            
-            
-        };
+        int[] mid1, mid2;
         
         Graphics2D g2D = (Graphics2D) bImage.createGraphics();
         
@@ -36,6 +34,29 @@ public class CustomBorders
         
         g2D.setColor(c.getBackground().darker());
         g2D.fillRect(0,0,c.getWidth(),c.getHeight());
+        
+        if (width < height) {
+            mid1 = new int[] {
+                width / 2,
+                width / 2
+            };
+            mid2 = new int[] {
+                width / 2,
+                height - width / 2
+            };
+        }
+        else {
+            mid1 = new int[] {
+                height / 2,
+                height / 2
+            };
+            mid2 = new int[] {
+                width - height / 2,
+                height / 2
+            };
+        }
+       
+        
         
         
         g2D.setColor(c.getBackground().brighter());
