@@ -5,9 +5,9 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class MineSweeperMain
+public class MinesweeperMain
 {
-    public static void main(String []args){
-        
+    public static void main(String[] args){
+        Game game = new Game();
     }
 }
