@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
  Write a description of Game here.
@@ -8,7 +9,7 @@ import java.awt.*;
  @CONTRIBUTORS: (Darrell Leung, Nathan Huang, Sharon Li)
  @DATE (2026/05/11)
 */
-public class Game extends JPanel{
+public class Game extends JPanel implements ActionListener{
 
     /**DECLARE SWING COMPONENTS**/
     private JFrame frame;
@@ -18,8 +19,9 @@ public class Game extends JPanel{
     private Minefield mineField;
     private String intStartMilis;
     private int intMilisElapsed;
+    private boolean isRunning;
 
-    /**DEFAULT CONSTRUCTOR**/
+    /**CONSTRUCTOR**/
     public Game() {
         super(null);
         this.setBackground(Color.WHITE);
@@ -30,9 +32,7 @@ public class Game extends JPanel{
         this.frame.setContentPane(this);
         this.frame.show();
         
-        
-        
-        
+
         this.player = new Player();
         this.mineField = new Minefield();
         this.intStartMilis = "UNKNOWN";
@@ -53,8 +53,39 @@ public class Game extends JPanel{
         return this.intMilisElapsed;
     }
 
-    /**SETTERS**/
-    public void setPlayer(Player p) {
-        this.player = p;
+    
+    public void run() {
+        final float FPS = 120;
+        final int DT = (int) (1000f / FPS);
+        
+        this.isRunning = true;
+        
+        while(this.isRunning) {
+            
+            
+            
+            
+            try
+            {
+                Thread.sleep(DT);
+            }
+            catch (InterruptedException ie)
+            {
+                ie.printStackTrace();
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Tile clicked = (Tile) e.getSource();
+        
+        //clicked.openTile();
+        
     }
 }
