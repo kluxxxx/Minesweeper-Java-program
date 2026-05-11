@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -13,30 +14,65 @@ public class Game extends JPanel implements ActionListener{
 
     /**DECLARE SWING COMPONENTS**/
     private JFrame frame;
+    private JPanel hud;
     
     /**DECLARE GAME INSTANCE VARIABLES**/
     private Player player;
     private Minefield mineField;
-    private String intStartMilis;
+    private int intStartMilis;
     private int intMilisElapsed;
     private boolean isRunning;
 
     /**CONSTRUCTOR**/
     public Game() {
         super(null);
-        this.setBackground(Color.WHITE);
-        
         
         this.frame = new JFrame("Minesweeper v1.0");
-        this.frame.setSize(1000,1000);
+        this.frame.setSize(800,600);
         this.frame.setContentPane(this);
         this.frame.show();
+        
+        this.generateUI();
         
 
         this.player = new Player();
         this.mineField = new Minefield();
-        this.intStartMilis = "UNKNOWN";
+        this.intStartMilis = 0;
         this.intMilisElapsed = 0;
+    }
+    
+    private void generateUI() {
+        final Border LOWERED = this.customBorder(0,false);
+        final Border RAISED = this.customBorder(0,true);
+        final int PADDING = 10;
+        
+        this.setBorder(RAISED);
+        
+        this.hud = new JPanel(null);
+        this.hud.setLocation(PADDING,PADDING);
+        this.hud.setSize(this.getWidth() - PADDING * 2, 100);
+        this.hud.setBorder(CustomBorders.generate(5,this.hud));
+        this.add(this.hud);
+        
+        
+    }
+    
+    private Border customBorder(int intThickness, boolean isRaised) {
+        Border beveled;
+        Border compound;
+        if (isRaised) {
+            beveled = new BevelBorder(BevelBorder.RAISED);
+        }
+        else {
+            beveled = new BevelBorder(BevelBorder.LOWERED);
+        }
+        
+        compound = beveled;
+        for (int i = 0; i < intThickness; i++) {
+            compound = new CompoundBorder(compound, beveled);
+        }
+        return compound;
+        
     }
 
     /**GETTERS**/
@@ -46,7 +82,7 @@ public class Game extends JPanel implements ActionListener{
     public Minefield getMineField() {
         return this.mineField;
     }
-    public String getStartMil() {
+    public int getStartMilis() {
         return this.intStartMilis;
     }
     public int getMilElapsed() {
