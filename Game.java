@@ -36,7 +36,7 @@ public class Game extends JPanel implements ActionListener{
         
 
         this.player = new Player();
-        this.mineField = new Minefield();
+        this.mineField = new Minefield((short)0, (short)0, 2);
         this.intStartMilis = 0;
         this.intMilisElapsed = 0;
     }
