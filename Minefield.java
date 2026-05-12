@@ -23,14 +23,12 @@ public class Minefield extends JPanel
     private int intMines; 
 
     // constructor for class mineField 
-    public Minefield(short h, short w, int m)
+    public Minefield(short w, short h, int m)
     {
         // initialize instance variables
         this.shrHeight = h; 
         this.shrWidth = w; 
         this.intMines = m; 
-       
-
     }
     
     
@@ -81,6 +79,6 @@ public class Minefield extends JPanel
     {
         float fltTileSize = intWidth / this.shrWidth; 
         
-        this.setSize(intWidth, (int)(this.shrHeight*fltTileSize)); 
+        this.setSize(intWidth, (int)(this.shrHeight * fltTileSize)); 
     }
 }
