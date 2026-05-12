@@ -18,28 +18,69 @@ public class Minefield extends JPanel
     // declare instance variables of type short to store minfield dimensions
     private short shrHeight, shrWidth; 
     
+  
     // declare instance variable of type int for the amount of mines in the minefield
     private int intMines; 
 
     // constructor for class mineField 
-    public Minefield(short h, short w, int m, ArrayList<Tile> l)
+    public Minefield(short h, short w, int m)
     {
         // initialize instance variables
         this.shrHeight = h; 
         this.shrWidth = w; 
         this.intMines = m; 
-        this.lstTiles = l; 
+       
+
     }
     
-    // default constructor 
-    public Minefield()
+    
+    // getters
+    public ArrayList<Tile> getTiles() 
     {
-        // initialize instance variables
-        this.shrHeight = 0; 
-        this.shrWidth = 0; 
-        this.intMines = 0; 
-        this.lstTiles = new ArrayList<Tile>(); 
+        return this.lstTiles;
     }
     
+    public short getGridWidth() 
+    {
+        return this.shrWidth;
+    }
     
+    public short geGridHeight() 
+    {
+        return this.shrHeight;
+    }
+    
+    public int getMines() 
+    {
+        return this.intMines;
+    }
+
+    // setters
+    public void setTiles(ArrayList<Tile> t) 
+    {
+        this.lstTiles = t;
+    }
+    
+    public void setWidth(short w) 
+    {
+        this.shrWidth = w;
+    }
+    
+    public void setHeight(short h) 
+    {
+        this.shrHeight = h;
+    }
+    
+    public void setMines(int m) 
+    {
+        this.intMines = m;
+    }
+
+    // code generate grid method
+    public void generateGrid(int intWidth)
+    {
+        float fltTileSize = intWidth / this.shrWidth; 
+        
+        this.setSize(intWidth, (int)(this.shrHeight*fltTileSize)); 
+    }
 }
