@@ -29,5 +29,33 @@ public class Minefield extends JPanel
         this.shrWidth = w; 
         this.intMines = m; 
     }
+    
+    /**GETTERS**/
+    public ArrayList<Tile> getTiles() {
+        return this.lstTiles;
+    }
+    public short getGridWidth() {
+        return this.shrWidth;
+    }
+    public short geGridHeight() {
+        return this.shrHeight;
+    }
+    public int getMines() {
+        return this.intMines;
+    }
+
+    /**SETTERS**/
+    public void setTiles(ArrayList<Tile> t) {
+        this.lstTiles = t;
+    }
+    public void setWidth(short w) {
+        this.shrWidth = w;
+    }
+    public void setHeight(short h) {
+        this.shrHeight = h;
+    }
+    public void setMines(int m) {
+        this.intMines = m;
+    }
 
 }

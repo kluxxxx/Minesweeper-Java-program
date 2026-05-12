@@ -35,38 +35,35 @@ public class BorderUtils
         g2D.setColor(c.getBackground().darker());
         g2D.fillRect(0,0,c.getWidth(),c.getHeight());
         
+        g2D.setColor(c.getBackground().brighter());
+        
         if (width < height) {
-            mid1 = new int[] {
-                width / 2,
-                width / 2
-            };
-            mid2 = new int[] {
-                width / 2,
-                height - width / 2
-            };
+            g2D.fillPolygon(
+                new int[] {0, width / 2, width},
+                new int[] {0, width / 2, 0},
+                3
+            );
+            g2D.fillPolygon(
+                new int[] {0, width / 2, width / 2, 0},
+                new int[] {0, width / 2, height - width / 2, height},
+                4
+            );
+            
         }
         else {
-            mid1 = new int[] {
-                height / 2,
-                height / 2
-            };
-            mid2 = new int[] {
-                width - height / 2,
-                height / 2
-            };
+            g2D.fillPolygon(
+                new int[] {0, height / 2, 0},
+                new int[] {0, height / 2, height},
+                3
+            );
+            g2D.fillPolygon(
+                new int[] {0, height / 2, width - height / 2, width},
+                new int[] {0, height / 2, height / 2, 0},
+                4
+            );
         }
        
-        
-        
-        
-        g2D.setColor(c.getBackground().brighter());
-        g2D.fillPolygon(
-            new int[] {0, c.getWidth(), 0},
-            new int[] {0, 0, c.getHeight()},
-            3
-        );
-        
-        
+
         g2D.dispose();
         return new ImageIcon(bImage);
     }
