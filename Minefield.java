@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 // import javax swing stuff
 import javax.swing.*;  
+
+import java.awt.event.ActionListener; 
 public class Minefield extends JPanel
 {
     // create arraylist of tiles for the main grid
@@ -43,7 +45,7 @@ public class Minefield extends JPanel
         return this.shrWidth;
     }
     
-    public short geGridHeight() 
+    public short getGridHeight() 
     {
         return this.shrHeight;
     }
@@ -75,10 +77,15 @@ public class Minefield extends JPanel
     }
 
     // code generate grid method
-    public void generateGrid(int intWidth)
+    public void generateGrid(int intWidth, ActionListener al)
     {
         float fltTileSize = intWidth / this.shrWidth; 
         
         this.setSize(intWidth, (int)(this.shrHeight * fltTileSize)); 
+        
+        for (int i = 0; i < intWidth; i++)
+        {
+            
+        }
     }
 }
