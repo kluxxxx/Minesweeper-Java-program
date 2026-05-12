@@ -15,6 +15,11 @@ public class Game extends JPanel implements ActionListener{
     /**DECLARE SWING COMPONENTS**/
     private JFrame frame;
     private JPanel hud;
+    private JButton btnMenu;
+    private JButton btnSettings;
+    
+    private SegmentedDisplay timeDisplay;
+    private SegmentedDisplay minesDisplay;
     
     /**DECLARE GAME INSTANCE VARIABLES**/
     private Player player;
@@ -22,39 +27,71 @@ public class Game extends JPanel implements ActionListener{
     private int intStartMilis;
     private int intMilisElapsed;
     private boolean isRunning;
+    private boolean hasClicked;
 
     /**CONSTRUCTOR**/
     public Game() {
         super(null);
         
         this.frame = new JFrame("Minesweeper v1.0");
-        this.frame.setSize(800,600);
         this.frame.setContentPane(this);
+        this.frame.setSize(600,600);
         this.frame.show();
+        
+        this.mineField = new Minefield((short)10, (short)15, 20);
         
         this.generateUI();
         
-
         this.player = new Player();
-        this.mineField = new Minefield((short)0, (short)0, 2);
+        
         this.intStartMilis = 0;
         this.intMilisElapsed = 0;
+        this.hasClicked = false;
     }
     
     private void generateUI() {
         final Border LOWERED = this.customBorder(0,false);
         final Border RAISED = this.customBorder(0,true);
         final int PADDING = 10;
-        
-        this.setBorder(BorderUtils.raised(5,this));
+        final int WIDTH = this.getWidth();
+        final int HUD_HEIGHT =  WIDTH / 9;
+        final int BTN_SIZE = HUD_HEIGHT - PADDING * 2;
         
         this.hud = new JPanel(null);
         this.hud.setLocation(PADDING,PADDING);
-        this.hud.setSize(this.getWidth() - PADDING * 2, 100);
-        this.hud.setBorder(BorderUtils.raised(5,this.hud));
+        this.hud.setSize(WIDTH - PADDING * 2, HUD_HEIGHT);
+        this.hud.setBorder(BorderUtils.lowered(5,this.hud));
         this.add(this.hud);
         
         
+        this.mineField.setLocation(PADDING,PADDING * 2 + this.hud.getHeight());
+        this.mineField.generateGrid(WIDTH - PADDING * 2);
+        this.mineField.setBorder(BorderUtils.lowered(5,this.mineField));
+        this.add(this.mineField);
+        
+        this.btnMenu = new JButton("☻");
+        this.btnMenu.setSize(BTN_SIZE, BTN_SIZE);
+        this.btnMenu.setLocation(this.hud.getWidth() /2 - BTN_SIZE/2, PADDING);
+        this.btnMenu.setBorder(BorderUtils.raised(5,this.btnMenu));
+        this.hud.add(btnMenu);
+        
+        this.minesDisplay = new SegmentedDisplay(BTN_SIZE, (byte) 3, 5);
+        this.minesDisplay.setLocation(this.hud.getWidth() /2 + BTN_SIZE/2 + PADDING, PADDING);
+        this.hud.add(minesDisplay);
+        
+        this.timeDisplay = new SegmentedDisplay(BTN_SIZE, (byte) 3, 5);
+        this.timeDisplay.setLocation(this.hud.getWidth() /2 - BTN_SIZE/2 - this.timeDisplay.getWidth() - PADDING, PADDING);
+        this.hud.add(timeDisplay);
+        
+        
+        this.setPreferredSize(new Dimension(
+            WIDTH,
+            this.hud.getHeight() + this.mineField.getHeight() + PADDING * 3
+        ));
+        
+        //Resize the frame to include its content pane
+        this.frame.pack();
+        this.setBorder(BorderUtils.raised(5,this));
     }
     
     private Border customBorder(int intThickness, boolean isRaised) {
@@ -115,11 +152,19 @@ public class Game extends JPanel implements ActionListener{
     }
     
     
-    
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         Tile clicked = (Tile) e.getSource();
+        
+        if (this.hasClicked) {
+            
+        }
+        else {
+            //this.mineField.generateMines();
+            System.out.println("First Click");
+            
+            this.hasClicked = true;
+        }
         
         //clicked.openTile();
         

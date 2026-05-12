@@ -12,10 +12,14 @@ import javax.swing.*;
 public class BorderUtils 
 {
     public static Border raised(int t, JComponent c) {
-        return new MatteBorder(t,t,t,t,bevelIcon(c));
+        return new MatteBorder(t,t,t,t,bevelIcon(c, c.getBackground().brighter(), c.getBackground().darker()));
     }
     
-    private static Icon bevelIcon(JComponent c){
+    public static Border lowered(int t, JComponent c) {
+        return new MatteBorder(t,t,t,t,bevelIcon(c, c.getBackground().darker(), c.getBackground().brighter()));
+    }
+    
+    private static Icon bevelIcon(JComponent c, Color topRight, Color bottomLeft){
         BufferedImage bImage = new BufferedImage(
             c.getWidth(),
             c.getHeight(),
@@ -32,10 +36,10 @@ public class BorderUtils
         //Enable anti-aliasing
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
-        g2D.setColor(c.getBackground().darker());
+        g2D.setColor(bottomLeft);
         g2D.fillRect(0,0,c.getWidth(),c.getHeight());
         
-        g2D.setColor(c.getBackground().brighter());
+        g2D.setColor(topRight);
         
         if (width < height) {
             g2D.fillPolygon(
