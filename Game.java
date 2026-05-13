@@ -51,14 +51,11 @@ public class Game extends JPanel implements ActionListener{
         this.hasClicked = false;
     }
     
-    private void generateUI() {
-        final Border LOWERED = this.customBorder(0,false);
-        final Border RAISED = this.customBorder(0,true);
-        
+    private void generateUI() {        
         final int SPACING = 14;
         final int HUD_SPACING = 12;
         final int WIDTH = this.getWidth();
-        final int HUD_HEIGHT =  80;
+        final int HUD_HEIGHT =  70;
         final int HUD_SIZE = HUD_HEIGHT - HUD_SPACING * 2;
         
         final Color DEFAULT = new Color(188,188,188);
@@ -117,24 +114,7 @@ public class Game extends JPanel implements ActionListener{
         this.frame.pack();
         this.setBorder(BorderFactory.custom(5,HIGHLIGHTS,SHADOWS,this));
     }
-    
-    private Border customBorder(int intThickness, boolean isRaised) {
-        Border beveled;
-        Border compound;
-        if (isRaised) {
-            beveled = new BevelBorder(BevelBorder.RAISED);
-        }
-        else {
-            beveled = new BevelBorder(BevelBorder.LOWERED);
-        }
-        
-        compound = beveled;
-        for (int i = 0; i < intThickness; i++) {
-            compound = new CompoundBorder(compound, beveled);
-        }
-        return compound;
-        
-    }
+
 
     /**GETTERS**/
     public Player getPlayer() {
