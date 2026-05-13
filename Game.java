@@ -12,6 +12,10 @@ import java.awt.event.*;
 */
 public class Game extends JPanel implements ActionListener, MouseListener{
     
+    final Color DEFAULT = new Color(188,188,188);
+    final Color SHADOWS = new Color(122,122,122);
+    final Color HIGHLIGHTS = new Color(254,254,254);
+    
     /**DECLARE SWING COMPONENTS**/
     private JFrame frame;
     private JPanel hud;
@@ -58,9 +62,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         final int HUD_HEIGHT =  70;
         final int HUD_SIZE = HUD_HEIGHT - HUD_SPACING * 2;
         
-        final Color DEFAULT = new Color(188,188,188);
-        final Color SHADOWS = new Color(122,122,122);
-        final Color HIGHLIGHTS = new Color(254,254,254);
+        
         
         this.hud = new JPanel(null);
         this.hud.setBackground(DEFAULT);
@@ -72,7 +74,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         this.mineField.setLocation(SPACING,(int)(SPACING * 1.7f) + this.hud.getHeight());
         this.mineField.setBackground(DEFAULT);
-        this.mineField.generateGrid(WIDTH - SPACING * 2, this);
+        this.mineField.generateGrid(WIDTH - SPACING * 2, this, HIGHLIGHTS, SHADOWS);
         this.mineField.setBorder(BorderFactory.custom(5,SHADOWS,HIGHLIGHTS,this.mineField));
         this.add(this.mineField);
         
@@ -170,8 +172,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
             this.hasClicked = true;
         }
         
-        clicked.openTile();
-        clicked.setBackground(Color.WHITE);
+        this.mineField.openTile(clicked);
+        clicked.setBorder(null);
         
         
     }
