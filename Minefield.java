@@ -5,19 +5,25 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-// import arrayList to make the minfield grid
+// import Arraylist to store available tiles
 import java.util.ArrayList; 
 
 // import javax swing stuff
 import javax.swing.*;  
+
+import java.awt.event.ActionListener; 
+
+import java.awt.*; 
 public class Minefield extends JPanel
 {
-    // create arraylist of tiles for the main grid
-    private ArrayList<Tile> lstTiles; 
+    // create 2D of tiles for the main grid
+    private Tile[][] arrGrid; 
     
     // declare instance variables of type short to store minfield dimensions
     private short shrHeight, shrWidth; 
     
+    // declare arralist of type tiles to store list of available tiles
+    private ArrayList<Tile> lstAvailable = new ArrayList<Tile>();  
   
     // declare instance variable of type int for the amount of mines in the minefield
     private int intMines; 
@@ -25,17 +31,17 @@ public class Minefield extends JPanel
     // constructor for class mineField 
     public Minefield(short w, short h, int m)
     {
+        super(null);
         // initialize instance variables
         this.shrHeight = h; 
         this.shrWidth = w; 
         this.intMines = m; 
     }
     
-    
     // getters
-    public ArrayList<Tile> getTiles() 
+    public Tile[][] getTiles() 
     {
-        return this.lstTiles;
+        return this.arrGrid;
     }
     
     public short getGridWidth() 
@@ -43,7 +49,7 @@ public class Minefield extends JPanel
         return this.shrWidth;
     }
     
-    public short geGridHeight() 
+    public short getGridHeight() 
     {
         return this.shrHeight;
     }
@@ -53,10 +59,15 @@ public class Minefield extends JPanel
         return this.intMines;
     }
 
-    // setters
-    public void setTiles(ArrayList<Tile> t) 
+    public ArrayList<Tile> getAvailableTiles() 
     {
-        this.lstTiles = t;
+        return this.lstAvailable;
+    }
+    
+    // setters
+    public void setTiles(Tile[][] t) 
+    {
+        this.arrGrid = t;
     }
     
     public void setWidth(short w) 
@@ -74,18 +85,110 @@ public class Minefield extends JPanel
         this.intMines = m;
     }
 
-    // code generate grid method
-    public void generateGrid(int intWidth)
+    public void setAvailableTiles(ArrayList<Tile> l) 
     {
+        this.lstAvailable = l; 
+    }
+    
+    // code generate grid method
+    public void generateGrid(int intWidth, ActionListener al)
+    {
+        // initialize arrGrid
+        this.arrGrid = new Tile[this.shrHeight][this.shrWidth]; 
+        
+        this.lstAvailable.clear(); 
+        
         float fltTileSize = intWidth / this.shrWidth; 
         
         this.setSize(intWidth, (int)(this.shrHeight * fltTileSize)); 
         
-        for(short i = 0; i < this.shrWidth; i++) {
-            for(short j = 0; j < this.shrWidth; j++) {
+        for(short i = 0; i < this.shrHeight; i++) 
+        {
+            for(short j = 0; j < this.shrWidth; j++) 
+            {
+                Tile template = new Tile(i, j, false, TileState.CLOSED);
+                template.setSize((int)fltTileSize, (int) fltTileSize);
+                template.setLocation((int) (j * fltTileSize), (int)( i * fltTileSize));
+                template.addActionListener(al);
+                
+                
+                this.arrGrid[i][j] = template; 
+                this.add(template);
+                
+                this.lstAvailable.add(this.arrGrid[i][j]); 
                 
             }
         }
-        
     }
+    
+    
+    public void generateMines(int intNumMines, short shrRow, short shrCol)
+    {
+        Tile addmine; 
+        
+        
+        
+        for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
+        {
+            for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+            {
+                System.out.println( i + " " + j); 
+                if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth)
+                {
+                    this.lstAvailable.remove(this.arrGrid[i][j]); 
+                    
+                    System.out.println("YES"); 
+                }
+            }
+        }
+        
+        for (int i = 0; i < intNumMines; i++)
+        {
+            addmine = this.lstAvailable.get((int)(Math.random() * this.lstAvailable.size())); 
+            
+            addmine.setIsMine(true); 
+            
+            addmine.setBackground(Color.RED); 
+            
+            this.lstAvailable.remove(addmine); 
+            
+        }
+    }
+    
+    // code method to search for available tiles from arraylist
+    public void searchMines(short shrRow, short shrCol)
+    {
+        for (short i = 0; i < this.lstAvailable.size(); i++)
+        {
+            
+        }
+    }
+    
+    // code method to recursively check of surrounding tile has mine neighbours
+   public void openTile(Tile tile)
+   {
+       short shrRow, shrCol; 
+       byte minesCount; 
+       
+       if( !tile.isOpen())
+       {
+           tile.setState(TileState.OPEN);  
+            shrRow = tile.getRow(); 
+            shrCol = tile.getColumn(); 
+               
+            
+            
+           for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
+            {
+            for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+            {
+                
+                if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
+                {
+                    
+                }
+            }
+            }
+       }
+   }
 }
