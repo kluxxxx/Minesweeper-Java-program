@@ -82,10 +82,15 @@ public class Minefield extends JPanel
         float fltTileSize = intWidth / this.shrWidth; 
         
         this.setSize(intWidth, (int)(this.shrHeight * fltTileSize)); 
-        
-        for (int i = 0; i < intWidth; i++)
+
+        for(short i = 0; i < this.shrHeight; i++) 
         {
-            
+            for(short j = 0; j < this.shrWidth; j++) 
+            {
+                this.lstTiles.add(new Tile(i, j, false, CLOSED); 
+            }
         }
+        
+
     }
 }
