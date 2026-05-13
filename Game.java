@@ -75,7 +75,7 @@ public class Game extends JPanel implements ActionListener{
         
         this.mineField.setLocation(SPACING,(int)(SPACING * 1.7f) + this.hud.getHeight());
         this.mineField.setBackground(DEFAULT);
-        this.mineField.generateGrid(WIDTH - SPACING * 2);
+        this.mineField.generateGrid(WIDTH - SPACING * 2, this);
         this.mineField.setBorder(BorderFactory.custom(5,SHADOWS,HIGHLIGHTS,this.mineField));
         this.add(this.mineField);
         
@@ -190,7 +190,7 @@ public class Game extends JPanel implements ActionListener{
             this.hasClicked = true;
         }
         
-        //clicked.openTile();
+        clicked.openTile();
         
     }
 }

@@ -25,6 +25,7 @@ public class Minefield extends JPanel
     // constructor for class mineField 
     public Minefield(short w, short h, int m)
     {
+        super(null);
         // initialize instance variables
         this.shrHeight = h; 
         this.shrWidth = w; 
@@ -86,7 +87,17 @@ public class Minefield extends JPanel
         {
             for(short j = 0; j < this.shrWidth; j++) 
             {
-                this.arrTiles[i][j] = new Tile(i, j, false, TileState.CLOSED); 
+                Tile template = new Tile(i, j, false, TileState.CLOSED);
+                template.setSize((int)fltTileSize, (int) fltTileSize);
+                template.setLocation((int) (j * fltTileSize), (int)( i * fltTileSize));
+                template.addActionListener(al);
+                
+                
+                this.arrTiles[i][j] = template; 
+                this.add(template);
+                
+                
+                
             }
         }
     }
