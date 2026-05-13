@@ -128,15 +128,16 @@ public class Minefield extends JPanel
         
         
         
-        for(int i = shrRow - 1 ; i < shrRow + 1; i++) 
+        for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
         {
-            for(int j = shrCol - 1 ; j < shrCol + 1; j++) 
+            for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
             {
-                if (shrRow >= 0 && shrRow < shrHeight && shrCol >= 0 && shrCol < shrWidth)
+                System.out.println( i + " " + j); 
+                if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth)
                 {
                     this.lstAvailable.remove(this.arrGrid[i][j]); 
                     
-                    System.out.println( i + " " + j); 
+                    System.out.println("YES"); 
                 }
             }
         }
