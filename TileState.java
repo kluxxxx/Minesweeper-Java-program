@@ -7,5 +7,5 @@
  */
 public enum TileState
 {
-    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+    CLOSED, OPEN, FLAGGED;
 }
