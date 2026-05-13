@@ -10,7 +10,7 @@ import java.awt.event.*;
  @CONTRIBUTORS: (Darrell Leung, Nathan Huang, Sharon Li)
  @DATE (2026/05/11)
 */
-public class Game extends JPanel implements ActionListener{
+public class Game extends JPanel implements ActionListener, MouseListener{
     
     /**DECLARE SWING COMPONENTS**/
     private JFrame frame;
@@ -181,16 +181,49 @@ public class Game extends JPanel implements ActionListener{
         Tile clicked = (Tile) e.getSource();
         
         if (this.hasClicked) {
-            
+            System.out.println("Second Click");
         }
         else {
-            //this.mineField.generateMines();
+            this.mineField.generateMines(30, clicked.getRow(), clicked.getColumn() );
             System.out.println("First Click");
             
             this.hasClicked = true;
         }
         
         clicked.openTile();
+        clicked.setBackground(Color.WHITE);
+        
+        
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //Detect if the use right clicked or left clicked
+        //BUTTON1 = left click
+        //BUTTON2 = middle click
+        //BUTTON3 = r click
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            System.out.println("RIGHT CLICK");
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e){
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e){
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e){
+        
+    }
+
+    @Override
+    public void	mouseReleased(MouseEvent e) {
         
     }
 }
