@@ -5,19 +5,25 @@
  * @author (your name)
  * @version (a version number or a date)
  */
+// import Arraylist to store available tiles
+import java.util.ArrayList; 
 
 // import javax swing stuff
 import javax.swing.*;  
 
 import java.awt.event.ActionListener; 
+
+import java.awt.*; 
 public class Minefield extends JPanel
 {
-    // create arraylist of tiles for the main grid
-    private Tile[][] arrTiles; 
+    // create 2D of tiles for the main grid
+    private Tile[][] arrGrid; 
     
     // declare instance variables of type short to store minfield dimensions
     private short shrHeight, shrWidth; 
     
+    // declare arralist of type tiles to store list of available tiles
+    private ArrayList<Tile> lstAvailable; 
   
     // declare instance variable of type int for the amount of mines in the minefield
     private int intMines; 
@@ -35,7 +41,7 @@ public class Minefield extends JPanel
     // getters
     public Tile[][] getTiles() 
     {
-        return this.arrTiles;
+        return this.arrGrid;
     }
     
     public short getGridWidth() 
@@ -53,10 +59,15 @@ public class Minefield extends JPanel
         return this.intMines;
     }
 
+    public ArrayList<Tile> getAvailableTiles() 
+    {
+        return this.lstAvailable;
+    }
+    
     // setters
     public void setTiles(Tile[][] t) 
     {
-        this.arrTiles = t;
+        this.arrGrid = t;
     }
     
     public void setWidth(short w) 
@@ -74,10 +85,16 @@ public class Minefield extends JPanel
         this.intMines = m;
     }
 
+    public void setAvailableTiles(ArrayList<Tile> l) 
+    {
+        this.lstAvailable = l; 
+    }
+    
     // code generate grid method
     public void generateGrid(int intWidth, ActionListener al)
     {
-        this.arrTiles = new Tile[this.shrHeight][this.shrWidth]; 
+        // initialize arrGrid
+        this.arrGrid = new Tile[this.shrHeight][this.shrWidth]; 
         
         float fltTileSize = intWidth / this.shrWidth; 
         
@@ -93,17 +110,41 @@ public class Minefield extends JPanel
                 template.addActionListener(al);
                 
                 
-                this.arrTiles[i][j] = template; 
+                this.arrGrid[i][j] = template; 
                 this.add(template);
                 
-                
+                this.lstAvailable.add(this.arrGrid[i][j]); 
                 
             }
         }
     }
     
+    
     public void generateMines(int intNumMines, short shrRow, short shrCol)
     {
+        Tile addmine; 
         
+        this.lstAvailable.remove(this.arrGrid[shrRow][shrCol]); 
+        
+        for (int i = 0; i < intNumMines; i++)
+        {
+            addmine = this.lstAvailable.get((int)(Math.random() * this.lstAvailable.size())); 
+            
+            addmine.setIsMine(true); 
+            
+            addmine.setBackground(Color.RED); 
+            
+            this.lstAvailable.remove(addmine); 
+            
+        }
+    }
+    
+    // code method to search for available tiles from arraylist
+    public void searchMines(short shrRow, short shrCol)
+    {
+        for (short i = 0; i < this.lstAvailable.size(); i++)
+        {
+            
+        }
     }
 }
