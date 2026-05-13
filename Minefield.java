@@ -31,7 +31,6 @@ public class Minefield extends JPanel
         this.intMines = m; 
     }
     
-    
     // getters
     public Tile[][] getTiles() 
     {
