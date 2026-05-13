@@ -6,6 +6,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
+
 //import JButton to make tiles clickable
 import javax.swing.JButton;
 public class Tile extends JButton
@@ -18,6 +19,11 @@ public class Tile extends JButton
    
    // declare instance variable of type boolean for if the tile contains a mine
    private boolean isMine; 
+   
+   // declare instance variable of type byte to store num neighbours
+   private byte bytNeighbours; 
+   
+   
    
    // code constructor for creating new Tile objects
    public Tile(short r, short c, boolean m, TileState s)
@@ -58,6 +64,12 @@ public class Tile extends JButton
    // code method to recursively check of surrounding tile has mine neighbours
    public void openTile()
    {
-       
+       if(this.tileState == TileState.CLOSED)
+       {
+           this.tileState = TileState.OPEN; 
+           
+           // check for mine neighbours
+           
+       }
    }
 }
