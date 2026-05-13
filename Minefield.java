@@ -5,8 +5,6 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-// import arrayList to make the minfield grid
-import java.util.ArrayList; 
 
 // import javax swing stuff
 import javax.swing.*;  
@@ -15,7 +13,7 @@ import java.awt.event.ActionListener;
 public class Minefield extends JPanel
 {
     // create arraylist of tiles for the main grid
-    private ArrayList<Tile> lstTiles; 
+    private Tile[][] arrTiles; 
     
     // declare instance variables of type short to store minfield dimensions
     private short shrHeight, shrWidth; 
@@ -35,9 +33,9 @@ public class Minefield extends JPanel
     
     
     // getters
-    public ArrayList<Tile> getTiles() 
+    public Tile[][] getTiles() 
     {
-        return this.lstTiles;
+        return this.arrTiles;
     }
     
     public short getGridWidth() 
@@ -56,9 +54,9 @@ public class Minefield extends JPanel
     }
 
     // setters
-    public void setTiles(ArrayList<Tile> t) 
+    public void setTiles(Tile[][] t) 
     {
-        this.lstTiles = t;
+        this.arrTiles = t;
     }
     
     public void setWidth(short w) 
@@ -79,18 +77,23 @@ public class Minefield extends JPanel
     // code generate grid method
     public void generateGrid(int intWidth, ActionListener al)
     {
+        this.arrTiles = new Tile[this.shrHeight][this.shrWidth]; 
+        
         float fltTileSize = intWidth / this.shrWidth; 
         
         this.setSize(intWidth, (int)(this.shrHeight * fltTileSize)); 
-
+        
         for(short i = 0; i < this.shrHeight; i++) 
         {
             for(short j = 0; j < this.shrWidth; j++) 
             {
-                this.lstTiles.add(new Tile(i, j, false, CLOSED); 
+                this.arrTiles[i][j] = new Tile(i, j, false, TileState.CLOSED); 
             }
         }
+    }
+    
+    public void generateMines(int intNumMines, short shrRow, short shrCol)
+    {
         
-
     }
 }
