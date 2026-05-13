@@ -87,7 +87,7 @@ public class Minefield extends JPanel
         {
             for(short j = 0; j < this.shrWidth; j++) 
             {
-                this.lstTiles.add(new Tile(i, j, false, CLOSED); 
+                this.lstTiles.add(new Tile(i, j, false, TileState.CLOSED)); 
             }
         }
         
