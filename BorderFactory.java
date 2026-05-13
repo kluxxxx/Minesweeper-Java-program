@@ -9,20 +9,33 @@ import javax.swing.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class BorderUtils 
+public class BorderFactory 
 {
     public static Border raised(int t, JComponent c) {
-        return new MatteBorder(t,t,t,t,bevelIcon(c, c.getBackground().brighter(), c.getBackground().darker()));
+        return new MatteBorder(t,t,t,t,bevelIcon(c, 
+            c.getBackground().brighter().brighter(),
+            c.getBackground().darker()
+        ));
     }
     
     public static Border lowered(int t, JComponent c) {
-        return new MatteBorder(t,t,t,t,bevelIcon(c, c.getBackground().darker(), c.getBackground().brighter()));
+        return new MatteBorder(t,t,t,t,bevelIcon(c, 
+            c.getBackground().darker(), 
+            c.getBackground().brighter().brighter()
+        ));
+    }
+    
+    public static Border custom(int t, Color topRight, Color bottomLeft, JComponent c) {
+        return new MatteBorder(t,t,t,t,bevelIcon(c, 
+            topRight, 
+            bottomLeft
+        ));
     }
     
     private static Icon bevelIcon(JComponent c, Color topRight, Color bottomLeft){
         BufferedImage bImage = new BufferedImage(
-            c.getWidth(),
-            c.getHeight(),
+            Math.max(c.getWidth(),1),
+            Math.max(c.getHeight(),1),
             BufferedImage.TYPE_INT_ARGB
         );
         
@@ -52,7 +65,6 @@ public class BorderUtils
                 new int[] {0, width / 2, height - width / 2, height},
                 4
             );
-            
         }
         else {
             g2D.fillPolygon(

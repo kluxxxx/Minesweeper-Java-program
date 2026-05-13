@@ -11,15 +11,15 @@ import java.awt.event.*;
  @DATE (2026/05/11)
 */
 public class Game extends JPanel implements ActionListener{
-
+    
     /**DECLARE SWING COMPONENTS**/
     private JFrame frame;
     private JPanel hud;
     private JButton btnMenu;
     private JButton btnSettings;
     
-    private SegmentedDisplay timeDisplay;
-    private SegmentedDisplay minesDisplay;
+    private JLabel timeDisplay;
+    private JLabel minesDisplay;
     
     /**DECLARE GAME INSTANCE VARIABLES**/
     private Player player;
@@ -35,7 +35,9 @@ public class Game extends JPanel implements ActionListener{
         
         this.frame = new JFrame("Minesweeper v1.0");
         this.frame.setContentPane(this);
-        this.frame.setSize(600,600);
+        this.frame.setSize(400,600);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setResizable(false);
         this.frame.show();
         
         this.mineField = new Minefield((short)10, (short)15, 20);
@@ -52,46 +54,68 @@ public class Game extends JPanel implements ActionListener{
     private void generateUI() {
         final Border LOWERED = this.customBorder(0,false);
         final Border RAISED = this.customBorder(0,true);
-        final int PADDING = 10;
+        
+        final int SPACING = 14;
+        final int HUD_SPACING = 12;
         final int WIDTH = this.getWidth();
-        final int HUD_HEIGHT =  WIDTH / 9;
-        final int BTN_SIZE = HUD_HEIGHT - PADDING * 2;
+        final int HUD_HEIGHT =  80;
+        final int HUD_SIZE = HUD_HEIGHT - HUD_SPACING * 2;
+        
+        final Color DEFAULT = new Color(188,188,188);
+        final Color SHADOWS = new Color(122,122,122);
+        final Color HIGHLIGHTS = new Color(254,254,254);
         
         this.hud = new JPanel(null);
-        this.hud.setLocation(PADDING,PADDING);
-        this.hud.setSize(WIDTH - PADDING * 2, HUD_HEIGHT);
-        this.hud.setBorder(BorderUtils.lowered(5,this.hud));
+        this.hud.setBackground(DEFAULT);
+        this.hud.setLocation(SPACING,SPACING);
+        this.hud.setSize(WIDTH - SPACING * 2, HUD_HEIGHT);
+        this.hud.setBorder(BorderFactory.custom(5,SHADOWS,HIGHLIGHTS,this.hud));
         this.add(this.hud);
         
         
-        this.mineField.setLocation(PADDING,PADDING * 2 + this.hud.getHeight());
-        this.mineField.generateGrid(WIDTH - PADDING * 2);
-        this.mineField.setBorder(BorderUtils.lowered(5,this.mineField));
+        this.mineField.setLocation(SPACING,(int)(SPACING * 1.7f) + this.hud.getHeight());
+        this.mineField.setBackground(DEFAULT);
+        this.mineField.generateGrid(WIDTH - SPACING * 2);
+        this.mineField.setBorder(BorderFactory.custom(5,SHADOWS,HIGHLIGHTS,this.mineField));
         this.add(this.mineField);
         
         this.btnMenu = new JButton("☻");
-        this.btnMenu.setSize(BTN_SIZE, BTN_SIZE);
-        this.btnMenu.setLocation(this.hud.getWidth() /2 - BTN_SIZE/2, PADDING);
-        this.btnMenu.setBorder(BorderUtils.raised(5,this.btnMenu));
+        this.btnMenu.setBackground(DEFAULT);
+        this.btnMenu.setSize(HUD_SIZE, HUD_SIZE);
+        this.btnMenu.setLocation(this.hud.getWidth() /2 - HUD_SIZE/2, HUD_SPACING);
+        this.btnMenu.setBorder(BorderFactory.custom(5,HIGHLIGHTS,SHADOWS,this.btnMenu));
         this.hud.add(btnMenu);
         
-        this.minesDisplay = new SegmentedDisplay(BTN_SIZE, (byte) 3, 5);
-        this.minesDisplay.setLocation(this.hud.getWidth() /2 + BTN_SIZE/2 + PADDING, PADDING);
+        this.minesDisplay = new JLabel("010", JLabel.CENTER);
+        this.minesDisplay.setOpaque(true);
+        this.minesDisplay.setFont(new Font("Monospaced",Font.BOLD,(int)(HUD_SIZE * 0.9f)));
+        this.minesDisplay.setSize((int)(HUD_SIZE * 1.9f), HUD_SIZE);
+        this.minesDisplay.setBackground(Color.BLACK);
+        this.minesDisplay.setForeground(Color.RED);
+        this.minesDisplay.setBorder(BorderFactory.custom(2,SHADOWS,HIGHLIGHTS,this.minesDisplay));
+        this.minesDisplay.setLocation(HUD_SPACING, HUD_SPACING);
         this.hud.add(minesDisplay);
         
-        this.timeDisplay = new SegmentedDisplay(BTN_SIZE, (byte) 3, 5);
-        this.timeDisplay.setLocation(this.hud.getWidth() /2 - BTN_SIZE/2 - this.timeDisplay.getWidth() - PADDING, PADDING);
+        this.timeDisplay = new JLabel("000", JLabel.CENTER);
+        this.timeDisplay.setOpaque(true);
+        this.timeDisplay.setFont(new Font("Monospaced",Font.BOLD,(int)(HUD_SIZE * 0.9f)));
+        this.timeDisplay.setSize((int)(HUD_SIZE * 1.9f), HUD_SIZE);
+        this.timeDisplay.setBackground(Color.BLACK);
+        this.timeDisplay.setForeground(Color.RED);
+        this.timeDisplay.setBorder(BorderFactory.custom(2,SHADOWS,HIGHLIGHTS,this.timeDisplay));
+        this.timeDisplay.setLocation(this.hud.getWidth() - this.timeDisplay.getWidth() - HUD_SPACING, HUD_SPACING);
         this.hud.add(timeDisplay);
         
         
         this.setPreferredSize(new Dimension(
             WIDTH,
-            this.hud.getHeight() + this.mineField.getHeight() + PADDING * 3
+            this.mineField.getY() + this.mineField.getHeight() + SPACING
         ));
         
         //Resize the frame to include its content pane
+        this.setBackground(DEFAULT);
         this.frame.pack();
-        this.setBorder(BorderUtils.raised(5,this));
+        this.setBorder(BorderFactory.custom(5,HIGHLIGHTS,SHADOWS,this));
     }
     
     private Border customBorder(int intThickness, boolean isRaised) {
