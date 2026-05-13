@@ -163,4 +163,32 @@ public class Minefield extends JPanel
             
         }
     }
+    
+    // code method to recursively check of surrounding tile has mine neighbours
+   public void openTile(Tile tile)
+   {
+       short shrRow, shrCol; 
+       byte minesCount; 
+       
+       if( !tile.isOpen())
+       {
+           tile.setState(TileState.OPEN);  
+            shrRow = tile.getRow(); 
+            shrCol = tile.getColumn(); 
+               
+            
+            
+           for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
+            {
+            for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+            {
+                
+                if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
+                {
+                    
+                }
+            }
+            }
+       }
+   }
 }
