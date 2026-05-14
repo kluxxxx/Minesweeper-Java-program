@@ -154,9 +154,6 @@ public class Minefield extends JPanel
             addmine.setBackground(Color.RED); 
             
             this.lstAvailable.remove(addmine); 
-            
-            
-            
         }
     }
     
@@ -170,12 +167,15 @@ public class Minefield extends JPanel
     }
     
     // code method to recursively check of surrounding tile has mine neighbours
-   public void openTile(Tile tile)
+   public boolean openTile(Tile tile)
    {
        short shrRow, shrCol; 
        byte minesCount =0 ; 
        
-       
+       if(tile.getIsMine() == true)
+       {
+           return true; 
+       }
        
        if( !tile.isOpen())
        {
@@ -211,8 +211,6 @@ public class Minefield extends JPanel
                         {
                             openTile(this.arrGrid[i][j]); 
                         }
-                    
-                
                  }
                 }
            }
@@ -221,5 +219,7 @@ public class Minefield extends JPanel
                tile.setText("" + minesCount); 
            }
        }
+       
+       return false; 
     }
 }
