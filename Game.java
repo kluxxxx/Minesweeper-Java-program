@@ -74,20 +74,21 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         this.hud.setBackground(DEFAULT);
         this.hud.setLocation(SPACING,SPACING);
         this.hud.setSize(WIDTH - SPACING * 2, HUD_HEIGHT);
-        this.hud.setBorder(BorderFactory.custom(5,SHADOWS,HIGHLIGHTS,this.hud));
+        this.hud.setBorder(BorderFactory.custom(4,SHADOWS,HIGHLIGHTS,this.hud));
         this.add(this.hud);
         
         
         this.mineField.setLocation(SPACING,(int)(SPACING * 1.7f) + this.hud.getHeight());
         
-        this.mineField.setBorder(BorderFactory.custom(5,SHADOWS,HIGHLIGHTS,this.mineField));
+        this.mineField.setBorder(BorderFactory.custom(4,SHADOWS,HIGHLIGHTS,this.mineField));
         this.add(this.mineField);
         
-        this.btnMenu = new JButton("☻");
+        this.btnMenu = new JButton();
+        this.btnMenu.setIcon(this.loadIcon("smiley.png", HUD_SIZE - 15, HUD_SIZE - 15));
         this.btnMenu.setBackground(DEFAULT);
         this.btnMenu.setSize(HUD_SIZE, HUD_SIZE);
         this.btnMenu.setLocation(this.hud.getWidth() /2 - HUD_SIZE/2, HUD_SPACING);
-        this.btnMenu.setBorder(BorderFactory.outlined(5,HIGHLIGHTS,SHADOWS,2,SHADOWS,this.btnMenu));
+        this.btnMenu.setBorder(BorderFactory.outlined(4,HIGHLIGHTS,SHADOWS,2,SHADOWS,this.btnMenu));
         this.hud.add(btnMenu);
         
         this.minesDisplay = new JLabel("010", JLabel.CENTER);
@@ -119,7 +120,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         //Resize the frame to include its content pane
         this.setBackground(DEFAULT);
         this.frame.pack();
-        this.setBorder(BorderFactory.custom(5,HIGHLIGHTS,SHADOWS,this));
+        this.setBorder(BorderFactory.custom(4,HIGHLIGHTS,SHADOWS,this));
     }
 
 
@@ -204,11 +205,10 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         boolean a; 
         
         if (this.hasClicked) {
-            System.out.println("Second Click");
+            
         }
         else {
             this.mineField.generateMines(50, clicked.getRow(), clicked.getColumn() );
-            System.out.println("First Click");
             
             this.hasClicked = true;
         }
@@ -216,7 +216,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         // this.mineField.openTile(clicked);
         
         // added to test revealMine class
-        a = this.mineField.openTile(clicked);
+        a = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
         
         if (a == true)
         {

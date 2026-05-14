@@ -109,7 +109,7 @@ public class Minefield extends JPanel
         
         // float fltTileSize = (intWidth - 5 * 2f) / this.shrWidth; 
         
-        this.setSize((this.shrWidth * tileSize) + 5 * 2, (this.shrHeight * tileSize) + 5 * 2); 
+        this.setSize((this.shrWidth * tileSize) + 4 * 2, (this.shrHeight * tileSize) + 4 * 2); 
         
         for(short i = 0; i < this.shrHeight; i++) 
         {
@@ -117,7 +117,7 @@ public class Minefield extends JPanel
             {
                 Tile template = new Tile(i, j, false, TileState.CLOSED);
                 template.setSize(tileSize, tileSize);
-                template.setLocation((j * tileSize)+5, ( i * tileSize)+5);
+                template.setLocation((j * tileSize)+4, ( i * tileSize)+4);
                 template.setBackground(this.getBackground());
                 template.setBorder(BorderFactory.custom(4,highlights,shadows,template));
                 template.addActionListener(al);
@@ -175,7 +175,7 @@ public class Minefield extends JPanel
     }
     
     // code method to recursively check of surrounding tile has mine neighbours
-    public boolean openTile(Tile tile)
+    public boolean openTile(Tile tile, AbstractBorder openBorder)
     {
        short shrRow, shrCol; 
        byte minesCount =0 ; 
@@ -194,7 +194,7 @@ public class Minefield extends JPanel
             shrRow = tile.getRow(); 
             shrCol = tile.getColumn(); 
                
-            tile.setBorder(null);
+            tile.setBorder(openBorder);
             
            for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
             {
@@ -221,7 +221,7 @@ public class Minefield extends JPanel
                          if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
                         {
                             
-                                openTile(this.arrGrid[i][j]); 
+                                openTile(this.arrGrid[i][j], openBorder); 
                             
                         }
                  }
