@@ -210,7 +210,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         }
         
         this.mineField.openTile(clicked);
-        clicked.setBorder(null);
+        
         
         
     }

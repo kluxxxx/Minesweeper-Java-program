@@ -175,13 +175,15 @@ public class Minefield extends JPanel
        short shrRow, shrCol; 
        byte minesCount =0 ; 
        
+       
+       
        if( !tile.isOpen())
        {
            tile.setState(TileState.OPEN);  
             shrRow = tile.getRow(); 
             shrCol = tile.getColumn(); 
                
-            
+            tile.setBorder(null);
             
            for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
             {
@@ -200,11 +202,16 @@ public class Minefield extends JPanel
             
            if (minesCount == 0)
            {
+
                for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
                 {
                      for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
                      {
-                    openTile(this.arrGrid[i][j]); 
+                         if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
+                        {
+                            openTile(this.arrGrid[i][j]); 
+                        }
+                    
                 
                  }
                 }
