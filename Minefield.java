@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import javax.swing.*; 
 import javax.swing.border.*; 
 
+// import java.awt event stuff
 import java.awt.event.ActionListener; 
 
+// import java awt
 import java.awt.*; 
+
 public class Minefield extends JPanel
 {
-    // create 2D of tiles for the main grid
+    // create 2D array of tiles for the main grid
     private Tile[][] arrGrid; 
     
     // declare instance variables of type short to store minfield dimensions
@@ -32,12 +35,15 @@ public class Minefield extends JPanel
     // constructor for class mineField 
     public Minefield(short w, short h, int m)
     {
+        // call superclass JPanel constructor 
         super(null);
+        
         // initialize instance variables
         this.shrHeight = h; 
         this.shrWidth = w; 
         this.intMines = m; 
     }
+    
     
     // getters
     public Tile[][] getTiles() 
@@ -65,6 +71,7 @@ public class Minefield extends JPanel
         return this.lstAvailable;
     }
     
+    
     // setters
     public void setTiles(Tile[][] t) 
     {
@@ -90,6 +97,7 @@ public class Minefield extends JPanel
     {
         this.lstAvailable = l; 
     }
+    
     
     // code generate grid method
     public void generateGrid(ActionListener al, Color highlights, Color shadows, int tileSize)
@@ -167,8 +175,8 @@ public class Minefield extends JPanel
     }
     
     // code method to recursively check of surrounding tile has mine neighbours
-   public boolean openTile(Tile tile)
-   {
+    public boolean openTile(Tile tile)
+    {
        short shrRow, shrCol; 
        byte minesCount =0 ; 
        
@@ -179,6 +187,9 @@ public class Minefield extends JPanel
        
        if( !tile.isOpen())
        {
+           
+            boolean b;            
+           
            tile.setState(TileState.OPEN);  
             shrRow = tile.getRow(); 
             shrCol = tile.getColumn(); 
@@ -209,7 +220,9 @@ public class Minefield extends JPanel
                      {
                          if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
                         {
-                            openTile(this.arrGrid[i][j]); 
+                            
+                                openTile(this.arrGrid[i][j]); 
+                            
                         }
                  }
                 }
@@ -237,4 +250,29 @@ public class Minefield extends JPanel
              }
             }
     }
+    
+    // public boolean ifWon()
+    // {
+        // byte opened = 0; 
+        
+        // for(int i = 0 ; i < this.lstAvailable.size(); i++) 
+        // {
+            // if (this.lstAvailable.get(i).getState() == TileState.OPEN)
+            // {
+                // opened += 1; 
+            // }
+    
+        // }
+        
+        // if (opened == this.lstAvailable.size())
+        // {
+            // System.out.println("u won"); 
+            
+            // return true; 
+        // }
+        // else
+        // {
+            // return false; 
+        // }
+    // }
 }
