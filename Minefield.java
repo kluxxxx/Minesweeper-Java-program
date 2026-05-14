@@ -9,7 +9,8 @@
 import java.util.ArrayList; 
 
 // import javax swing stuff
-import javax.swing.*;  
+import javax.swing.*; 
+import javax.swing.border.*; 
 
 import java.awt.event.ActionListener; 
 
@@ -91,16 +92,16 @@ public class Minefield extends JPanel
     }
     
     // code generate grid method
-    public void generateGrid(int intWidth, ActionListener al)
+    public void generateGrid(int intWidth, ActionListener al, Color highlights, Color shadows)
     {
         // initialize arrGrid
         this.arrGrid = new Tile[this.shrHeight][this.shrWidth]; 
         
         this.lstAvailable.clear(); 
         
-        float fltTileSize = intWidth / this.shrWidth; 
+        float fltTileSize = (intWidth - 5 * 2f) / this.shrWidth; 
         
-        this.setSize(intWidth, (int)(this.shrHeight * fltTileSize)); 
+        this.setSize(intWidth, (int)(this.shrHeight * fltTileSize) + 5 * 2); 
         
         for(short i = 0; i < this.shrHeight; i++) 
         {
@@ -108,7 +109,9 @@ public class Minefield extends JPanel
             {
                 Tile template = new Tile(i, j, false, TileState.CLOSED);
                 template.setSize((int)fltTileSize, (int) fltTileSize);
-                template.setLocation((int) (j * fltTileSize), (int)( i * fltTileSize));
+                template.setLocation((int) (j * fltTileSize)+5, (int)( i * fltTileSize)+5);
+                template.setBackground(this.getBackground());
+                template.setBorder(BorderFactory.custom(4,highlights,shadows,template));
                 template.addActionListener(al);
                 
                 
@@ -165,4 +168,48 @@ public class Minefield extends JPanel
             
         }
     }
+    
+    // code method to recursively check of surrounding tile has mine neighbours
+   public void openTile(Tile tile)
+   {
+       short shrRow, shrCol; 
+       byte minesCount =0 ; 
+       
+       if( !tile.isOpen())
+       {
+           tile.setState(TileState.OPEN);  
+            shrRow = tile.getRow(); 
+            shrCol = tile.getColumn(); 
+               
+            
+            
+           for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
+            {
+             for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+             {
+                
+                if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
+                {
+                    if (this.arrGrid[i][j].getIsMine() == true)
+                    {
+                        minesCount += 1; 
+                    }
+                }
+             }
+            }
+            
+           if (minesCount == 0)
+           {
+               for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
+            {
+             for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+             {
+                openTile(this.arrGrid[i][j]); 
+                
+                System.out.println( i + " " + j); 
+             }
+            }
+       }
+   }
+}
 }

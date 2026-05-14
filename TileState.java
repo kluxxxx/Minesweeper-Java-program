@@ -7,5 +7,10 @@
  */
 public enum TileState
 {
-    CLOSED, OPEN, FLAGGED;
+    //Tile is closed
+    CLOSED, 
+    //Tile is opened
+    OPEN, 
+    //Tile is closed and flagged
+    FLAGGED;
 }

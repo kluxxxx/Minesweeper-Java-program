@@ -61,15 +61,13 @@ public class Tile extends JButton
          this.isMine = s;
    }
    
-   // code method to recursively check of surrounding tile has mine neighbours
-   public void openTile()
+   public void setState(TileState t) 
    {
-       if(this.tileState == TileState.CLOSED)
-       {
-           this.tileState = TileState.OPEN; 
-           
-           // check for mine neighbours
-           
-       }
+        this.tileState = t;
+   }
+   
+   public boolean isOpen()
+   {
+       return this.tileState == TileState.OPEN; 
    }
 }
