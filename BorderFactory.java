@@ -47,7 +47,7 @@ public class BorderFactory
         Graphics2D g2D = (Graphics2D) bImage.createGraphics();
         
         //Enable anti-aliasing
-        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2D.setColor(bottomLeft);
         g2D.fillRect(0,0,c.getWidth(),c.getHeight());

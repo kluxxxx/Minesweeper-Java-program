@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 /**
  Write a description of Game here.
@@ -41,7 +43,9 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         this.frame.setContentPane(this);
         this.frame.setSize(400,600);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setIconImage(this.loadImage("minesweeper_icon.png"));
         this.frame.setResizable(false);
+        //this.frame.setIconImage(new Image("textures//minesweeper_icon.png"));
         this.frame.show();
         
         this.mineField = new Minefield((short)10, (short)15, 20);
@@ -132,6 +136,39 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         return this.intMilisElapsed;
     }
 
+    public Image loadImage(String strFileName) {
+        //Declare a variable to store the image
+        Image img = null;
+        
+        try
+        {
+            //Load the image ("sprites//" directs the file reader to the sprites folder)
+            img = ImageIO.read(new File("sprites//"+strFileName));
+        }
+        catch (java.io.FileNotFoundException fnfe)
+        {
+            fnfe.printStackTrace();
+        }
+        catch (java.io.IOException ioe) 
+        {
+            ioe.printStackTrace();
+        }
+        
+        return img;
+    }
+    
+    //Load icons
+    public Icon loadIcon(String strFileName) {
+        return new ImageIcon(this.loadImage(strFileName));
+    }
+    
+    public Icon loadIcon(String strFileName, int intWidth, int intHeight) {
+        return new ImageIcon(this.loadImage(strFileName).getScaledInstance(
+            intWidth, 
+            intHeight,
+            Image.SCALE_SMOOTH
+        ));
+    }
     
     public void run() {
         final float FPS = 120;
@@ -205,7 +242,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     }
 
     @Override
-    public void	mouseReleased(MouseEvent e) {
+    public void    mouseReleased(MouseEvent e) {
         
     }
 }
