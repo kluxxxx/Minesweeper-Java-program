@@ -23,8 +23,6 @@ public class Tile extends JButton
    // declare instance variable of type byte to store num neighbours
    private byte bytNeighbours; 
    
-   
-   
    // code constructor for creating new Tile objects
    public Tile(short r, short c, boolean m, TileState s)
    {

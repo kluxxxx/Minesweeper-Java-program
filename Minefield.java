@@ -92,24 +92,24 @@ public class Minefield extends JPanel
     }
     
     // code generate grid method
-    public void generateGrid(int intWidth, ActionListener al, Color highlights, Color shadows)
+    public void generateGrid(ActionListener al, Color highlights, Color shadows, int tileSize)
     {
         // initialize arrGrid
         this.arrGrid = new Tile[this.shrHeight][this.shrWidth]; 
         
         this.lstAvailable.clear(); 
         
-        float fltTileSize = (intWidth - 5 * 2f) / this.shrWidth; 
+        // float fltTileSize = (intWidth - 5 * 2f) / this.shrWidth; 
         
-        this.setSize(intWidth, (int)(this.shrHeight * fltTileSize) + 5 * 2); 
+        this.setSize((this.shrWidth * tileSize) + 5 * 2, (this.shrHeight * tileSize) + 5 * 2); 
         
         for(short i = 0; i < this.shrHeight; i++) 
         {
             for(short j = 0; j < this.shrWidth; j++) 
             {
                 Tile template = new Tile(i, j, false, TileState.CLOSED);
-                template.setSize((int)fltTileSize, (int) fltTileSize);
-                template.setLocation((int) (j * fltTileSize)+5, (int)( i * fltTileSize)+5);
+                template.setSize(tileSize, tileSize);
+                template.setLocation((j * tileSize)+5, ( i * tileSize)+5);
                 template.setBackground(this.getBackground());
                 template.setBorder(BorderFactory.custom(4,highlights,shadows,template));
                 template.addActionListener(al);
