@@ -201,15 +201,18 @@ public class Minefield extends JPanel
            if (minesCount == 0)
            {
                for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
-            {
-             for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
-             {
-                openTile(this.arrGrid[i][j]); 
+                {
+                     for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+                     {
+                    openTile(this.arrGrid[i][j]); 
                 
-                System.out.println( i + " " + j); 
-             }
-            }
+                 }
+                }
+           }
+           else 
+           {
+               tile.setText("" + minesCount); 
+           }
        }
-   }
-}
+    }
 }
