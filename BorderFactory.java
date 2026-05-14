@@ -12,35 +12,50 @@ import javax.swing.*;
 public class BorderFactory 
 {
     public static Border raised(int t, JComponent c) {
-        return new MatteBorder(t,t,t,t,bevelIcon(c, 
+        return new MatteBorder(t,t,t,t,bevelIcon(
+            c.getWidth(),
+            c.getHeight(), 
             c.getBackground().brighter().brighter(),
             c.getBackground().darker()
         ));
     }
     
     public static Border lowered(int t, JComponent c) {
-        return new MatteBorder(t,t,t,t,bevelIcon(c, 
+        return new MatteBorder(t,t,t,t,bevelIcon(
+            c.getWidth(),
+            c.getHeight(), 
             c.getBackground().darker(), 
             c.getBackground().brighter().brighter()
         ));
     }
     
     public static Border custom(int t, Color topRight, Color bottomLeft, JComponent c) {
-        return new MatteBorder(t,t,t,t,bevelIcon(c, 
+        return new MatteBorder(t,t,t,t,bevelIcon(
+            c.getWidth(),
+            c.getHeight(), 
             topRight, 
             bottomLeft
         ));
     }
     
-    private static Icon bevelIcon(JComponent c, Color topRight, Color bottomLeft){
+    public static Border outlined(int t, Color topRight, Color bottomLeft, int o, Color outline, JComponent c) {
+        return new CompoundBorder(
+            new MatteBorder(o,o,o,o,outline),
+            new MatteBorder(t,t,t,t,bevelIcon(
+                c.getWidth() - 2*o,
+                c.getHeight() - 2*o, 
+                topRight, 
+                bottomLeft
+            ))
+        );
+    }
+    
+    private static Icon bevelIcon(int width, int height, Color topRight, Color bottomLeft){
         BufferedImage bImage = new BufferedImage(
-            Math.max(c.getWidth(),1),
-            Math.max(c.getHeight(),1),
+            Math.max(width,1),
+            Math.max(height,1),
             BufferedImage.TYPE_INT_ARGB
         );
-        
-        int width = c.getWidth();
-        int height = c.getHeight();
         
         int[] mid1, mid2;
         
@@ -50,7 +65,7 @@ public class BorderFactory
         //g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2D.setColor(bottomLeft);
-        g2D.fillRect(0,0,c.getWidth(),c.getHeight());
+        g2D.fillRect(0,0,width,height);
         
         g2D.setColor(topRight);
         

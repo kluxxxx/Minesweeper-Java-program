@@ -86,7 +86,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         this.btnMenu.setBackground(DEFAULT);
         this.btnMenu.setSize(HUD_SIZE, HUD_SIZE);
         this.btnMenu.setLocation(this.hud.getWidth() /2 - HUD_SIZE/2, HUD_SPACING);
-        this.btnMenu.setBorder(BorderFactory.custom(5,HIGHLIGHTS,SHADOWS,this.btnMenu));
+        this.btnMenu.setBorder(BorderFactory.outlined(5,HIGHLIGHTS,SHADOWS,2,SHADOWS,this.btnMenu));
         this.hud.add(btnMenu);
         
         this.minesDisplay = new JLabel("010", JLabel.CENTER);
