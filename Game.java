@@ -200,6 +200,9 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     public void actionPerformed(ActionEvent e) {
         Tile clicked = (Tile) e.getSource();
         
+        // added to test revealmine class
+        boolean a; 
+        
         if (this.hasClicked) {
             System.out.println("Second Click");
         }
@@ -210,9 +213,15 @@ public class Game extends JPanel implements ActionListener, MouseListener{
             this.hasClicked = true;
         }
         
-        this.mineField.openTile(clicked);
+        // this.mineField.openTile(clicked);
         
+        // added to test revealMine class
+        a = this.mineField.openTile(clicked);
         
+        if (a == true)
+        {
+            this.mineField.revealMines(); 
+        }
         
     }
     

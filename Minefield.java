@@ -135,12 +135,12 @@ public class Minefield extends JPanel
         {
             for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
             {
-                System.out.println( i + " " + j); 
-                if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth)
+                
+                if (i >= 0 && i < this.shrHeight && j >= 0 && j < this.shrWidth)
                 {
                     this.lstAvailable.remove(this.arrGrid[i][j]); 
                     
-                    System.out.println("YES"); 
+                  
                 }
             }
         }
@@ -151,7 +151,7 @@ public class Minefield extends JPanel
             
             addmine.setIsMine(true); 
             
-            addmine.setBackground(Color.RED); 
+            // addmine.setBackground(Color.BLUE); 
             
             this.lstAvailable.remove(addmine); 
         }
@@ -221,5 +221,20 @@ public class Minefield extends JPanel
        }
        
        return false; 
+    }
+    
+
+    public void revealMines ()
+    {
+        for(int i = 0 ; i < this.shrWidth; i++) 
+            {
+             for(int j = 0 ; j < this.shrHeight; j++) 
+             {
+                    if (this.arrGrid[j][i].getIsMine() == true)
+                    {
+                        this.arrGrid[j][i].setBackground(Color.RED); 
+                    }
+             }
+            }
     }
 }
