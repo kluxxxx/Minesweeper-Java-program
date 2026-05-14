@@ -171,7 +171,7 @@ public class Minefield extends JPanel
    public void openTile(Tile tile)
    {
        short shrRow, shrCol; 
-       byte minesCount; 
+       byte minesCount =0 ; 
        
        if( !tile.isOpen())
        {
@@ -183,15 +183,31 @@ public class Minefield extends JPanel
             
            for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
             {
-            for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
-            {
+             for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+             {
                 
                 if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
                 {
-                    
+                    if (this.arrGrid[i][j].getIsMine() == true)
+                    {
+                        minesCount += 1; 
+                    }
                 }
+             }
             }
+            
+           if (minesCount == 0)
+           {
+               for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
+            {
+             for(int j = shrCol - 1 ; j <= shrCol + 1; j++) 
+             {
+                openTile(this.arrGrid[i][j]); 
+                
+                System.out.println( i + " " + j); 
+             }
             }
        }
    }
+}
 }
