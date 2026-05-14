@@ -48,7 +48,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         //this.frame.setIconImage(new Image("textures//minesweeper_icon.png"));
         this.frame.show();
         
-        this.mineField = new Minefield((short)10, (short)15, 20);
+        this.mineField = new Minefield((short)10, (short)15, 50);
         
         this.generateUI();
         
@@ -204,7 +204,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
             System.out.println("Second Click");
         }
         else {
-            this.mineField.generateMines(30, clicked.getRow(), clicked.getColumn() );
+            this.mineField.generateMines(50, clicked.getRow(), clicked.getColumn() );
             System.out.println("First Click");
             
             this.hasClicked = true;
