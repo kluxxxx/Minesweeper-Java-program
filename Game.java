@@ -62,11 +62,13 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     private void generateUI() {        
         final int SPACING = 14;
         final int HUD_SPACING = 12;
-        final int WIDTH = this.getWidth();
         final int HUD_HEIGHT =  70;
         final int HUD_SIZE = HUD_HEIGHT - HUD_SPACING * 2;
         
-        
+        //Generate the minefield grid
+        this.mineField.setBackground(DEFAULT);
+        this.mineField.generateGrid(this, HIGHLIGHTS, SHADOWS, 30);
+        final int WIDTH = this.mineField.getWidth() + SPACING * 2;
         
         this.hud = new JPanel(null);
         this.hud.setBackground(DEFAULT);
@@ -77,8 +79,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         
         this.mineField.setLocation(SPACING,(int)(SPACING * 1.7f) + this.hud.getHeight());
-        this.mineField.setBackground(DEFAULT);
-        this.mineField.generateGrid(WIDTH - SPACING * 2, this, HIGHLIGHTS, SHADOWS);
+        
         this.mineField.setBorder(BorderFactory.custom(5,SHADOWS,HIGHLIGHTS,this.mineField));
         this.add(this.mineField);
         
