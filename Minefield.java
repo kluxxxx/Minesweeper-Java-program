@@ -152,6 +152,8 @@ public class Minefield extends JPanel
             
             this.lstAvailable.remove(addmine); 
             
+            
+            
         }
     }
     
