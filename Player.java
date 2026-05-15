@@ -1,4 +1,3 @@
-import java.util.*;
 import java.io.*;
 /**
  * Write a description of class Player here.
@@ -6,7 +5,7 @@ import java.io.*;
  * @author (Nathan Huang)
  * @version (5/11/26)
  */
-public class Player
+public class Player implements java.io.Serializable
 {
     // declare all instance variables
     final String FILE_NAME = "Player.txt";
@@ -16,5 +15,34 @@ public class Player
     int intGamesWon;
     int intGamesLost;
     
-    //create a intance variable to store game to file
+    //set default values based off default constructor
+    public Player(){
+        int intHighScore = 0;
+        int intGamesPlayed = 0;
+        int intTotalTimePlayed = 0;
+        int intGamesWon = 0;
+        int intGamesLost = 0;
+    }
+    
+    // create a method that will update the playes statistic based off of the previous game played and save it to file
+    public void saveToFile(Game game){
+        //update total time aplication has been runned for on that device
+        intTotalTimePlayed += game.getMilElapsed();
+        
+        
+    }
+    
+    // create a method that will load pevious game stats from file to game
+    public void loadFromFile(){
+        try{
+            Player player = 
+            
+        }catch(FileNotFoundException e) {
+            
+        }catch(IOException e) {
+            System.out.println("Error: Cannot read from file");
+        }catch (NoSuchElementException e){
+            System.out.println("Error: EOF encountered, file may be corrupt");
+        }
+    }
 }
