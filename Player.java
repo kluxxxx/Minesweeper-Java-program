@@ -35,7 +35,7 @@ public class Player implements java.io.Serializable
     // create a method that will load pevious game stats from file to game
     public void loadFromFile(){
         try{
-            Player player = 
+            Player player = null;
             
         }catch(FileNotFoundException e) {
             
