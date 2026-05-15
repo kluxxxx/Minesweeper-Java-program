@@ -48,7 +48,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         //this.frame.setIconImage(new Image("textures//minesweeper_icon.png"));
         this.frame.show();
         
-        this.mineField = new Minefield((short)10, (short)15, 50);
+        this.mineField = new Minefield((short)10, (short)15, 40);
         
         this.generateUI();
         
@@ -66,7 +66,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         //Generate the minefield grid
         this.mineField.setBackground(DEFAULT);
-        this.mineField.generateGrid(this, HIGHLIGHTS, SHADOWS, 30);
+        this.mineField.generateGrid(this, HIGHLIGHTS, SHADOWS, 32);
         final int WIDTH = this.mineField.getWidth() + SPACING * 2;
         
         this.hud = new JPanel(null);
@@ -204,8 +204,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        Tile clicked = (Tile) e.getSource();
         
+
         // added to test revealmine class
         boolean hasLost; 
         boolean a; 
@@ -246,6 +246,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         // {
             // System.out.println("yay"); 
         // }
+=======>>>>>>> 3cc47725037951fc2f11ce88f5bbcb21116d7a13
         
     }
     
@@ -281,17 +282,22 @@ public class Game extends JPanel implements ActionListener, MouseListener{
             //System.out.println("LEFT CLICK");
             
             boolean hasLost; 
-            boolean a; 
-            boolean b;
+            boolean hasWon; 
             
             if (this.hasClicked) {
                 hasLost = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
+                hasWon = this.mineField.ifWon();
                 
-                if (hasLost == true)
+                if (hasLost)
                 {
                     this.mineField.revealMines(); 
+                    this.timer.end();
                     player.saveToFile(this);
                     
+                    
+                }
+                else if (hasWon) {
+                    this.timer.end();
                 }
             }
             else {
