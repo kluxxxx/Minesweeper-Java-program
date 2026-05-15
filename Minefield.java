@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.*; 
 
 // import java.awt event stuff
-import java.awt.event.ActionListener; 
+import java.awt.event.MouseListener; 
 
 // import java awt
 import java.awt.*; 
@@ -100,7 +100,7 @@ public class Minefield extends JPanel
     
     
     // code generate grid method
-    public void generateGrid(ActionListener al, Color highlights, Color shadows, int tileSize)
+    public void generateGrid(MouseListener ml, Color highlights, Color shadows, int tileSize)
     {
         // initialize arrGrid
         this.arrGrid = new Tile[this.shrHeight][this.shrWidth]; 
@@ -120,7 +120,7 @@ public class Minefield extends JPanel
                 template.setLocation((j * tileSize)+4, ( i * tileSize)+4);
                 template.setBackground(this.getBackground());
                 template.setBorder(BorderFactory.custom(4,highlights,shadows,template));
-                template.addActionListener(al);
+                template.addMouseListener(ml);
                 
                 
                 this.arrGrid[i][j] = template; 
@@ -254,8 +254,6 @@ public class Minefield extends JPanel
     // check if won
     public boolean ifWon()
     {
-        // byte opened = 0; 
-        
         for(int i = 0 ; i < this.shrWidth; i++) 
             {
              for(int j = 0 ; j < this.shrHeight; j++) 
@@ -267,26 +265,6 @@ public class Minefield extends JPanel
              }
             }
         
-        
         return true; 
-        
-        // for(int i = 0 ; i < this.lstAvailable.size(); i++) 
-        // {
-            // if (this.lstAvailable.get(i).getState() == TileState.OPEN)
-            // {
-                // opened += 1; 
-            // }
-        // }
-        
-        // if (opened == this.lstAvailable.size())
-        // {
-            // System.out.println("u won"); 
-            
-            // return true; 
-        // }
-        // else
-        // {
-            // return false; 
-        // }
     }
 }
