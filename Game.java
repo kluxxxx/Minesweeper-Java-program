@@ -207,6 +207,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         boolean a; 
         boolean b;
         
+        
         if (this.hasClicked) {
             hasLost = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
             
@@ -222,9 +223,9 @@ public class Game extends JPanel implements ActionListener, MouseListener{
             
             this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
             
-            Thread timerThread = new Thread(this.timer);
+            //Thread timerThread = new Thread(this.timer);
             
-            timerThread.start();
+            //timerThread.start();
         }
         
         // this.mineField.openTile(clicked);
@@ -246,6 +247,26 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     
     @Override
     public void mouseClicked(MouseEvent e) {
+       
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e){
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e){
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e){
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
         Tile clicked = (Tile) e.getSource();
         
         //Detect if the use right clicked or left clicked
@@ -253,7 +274,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         //BUTTON2 = middle click
         //BUTTON3 = r click
         if (e.getButton() == MouseEvent.BUTTON1) {
-            System.out.println("LEFT CLICK");
+            //System.out.println("LEFT CLICK");
             
             boolean hasLost; 
             boolean a; 
@@ -281,28 +302,9 @@ public class Game extends JPanel implements ActionListener, MouseListener{
             
         }
         else if (e.getButton() == MouseEvent.BUTTON3) {
-            System.out.println("RIGHT CLICK");
+            //System.out.println("RIGHT CLICK");
+            
+            
         }
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e){
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e){
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e){
-        
-    }
-
-    @Override
-    public void    mouseReleased(MouseEvent e) {
-        
     }
 }

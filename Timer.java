@@ -36,7 +36,7 @@ public class Timer extends JLabel implements Runnable
         
         while (isRunning) {
             
-            System.out.println("RUNNING");
+            //System.out.println("RUNNING");
             
             //Update timer
             if (!this.isPaused) {
