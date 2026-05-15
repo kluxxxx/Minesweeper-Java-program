@@ -304,7 +304,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         else if (e.getButton() == MouseEvent.BUTTON3) {
             //System.out.println("RIGHT CLICK");
             
-            
+            this.mineField.flagTile(clicked); 
         }
     }
 }

@@ -221,8 +221,7 @@ public class Minefield extends JPanel
                          if (i >= 0 && i < shrHeight && j >= 0 && j < shrWidth && !this.arrGrid[i][j].equals(tile))
                         {
                             
-                                openTile(this.arrGrid[i][j], openBorder); 
-                            
+                            openTile(this.arrGrid[i][j], openBorder); 
                         }
                  }
                 }
@@ -274,7 +273,9 @@ public class Minefield extends JPanel
         {
              if (tileClicked.getState() == TileState.FLAGGED)
              {
-                 tileClicked.setState(TileState.CLOSED);  
+                 tileClicked.setState(TileState.CLOSED); 
+                 
+                 tileClicked.setText(""); 
              }
              else
              {
