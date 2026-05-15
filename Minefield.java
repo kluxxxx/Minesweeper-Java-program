@@ -27,7 +27,7 @@ public class Minefield extends JPanel
     private short shrHeight, shrWidth; 
     
     // declare arralist of type tiles to store list of available tiles
-    private ArrayList<Tile> lstAvailable = new ArrayList<Tile>();  
+    private ArrayList<Tile> lstAvailable = new ArrayList<Tile>(), lstMines = new ArrayList<Tile>();  
   
     // declare instance variable of type int for the amount of mines in the minefield
     private int intMines; 
@@ -122,7 +122,6 @@ public class Minefield extends JPanel
                 template.setBorder(BorderFactory.custom(4,highlights,shadows,template));
                 template.addMouseListener(ml);
                 
-                
                 this.arrGrid[i][j] = template; 
                 this.add(template);
                 
@@ -136,8 +135,6 @@ public class Minefield extends JPanel
     public void generateMines(int intNumMines, short shrRow, short shrCol)
     {
         Tile addmine; 
-        
-        
         
         for(int i = shrRow - 1 ; i <= shrRow + 1; i++) 
         {
@@ -162,6 +159,8 @@ public class Minefield extends JPanel
             // addmine.setBackground(Color.BLUE); 
             
             this.lstAvailable.remove(addmine); 
+            
+            this.lstMines.add(addmine); 
         }
     }
     
@@ -285,5 +284,12 @@ public class Minefield extends JPanel
              }
              
         }
+    }
+    
+    public void revealHint()
+    {
+        int i = (int)(Math.random() * this.lstMines.size());
+        
+        
     }
 }

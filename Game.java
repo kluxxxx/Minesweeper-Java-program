@@ -234,7 +234,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         // this.mineField.openTile(clicked);
         
-        // added to test revealMine class
+        // // added to test revealMine class
   
         // b = this.mineField.ifWon(); 
         
@@ -295,7 +295,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
                 }
             }
             else {
-                this.mineField.generateMines(50, clicked.getRow(), clicked.getColumn() );
+                this.mineField.generateMines(40, clicked.getRow(), clicked.getColumn() );
                 
                 this.hasClicked = true;
                 
