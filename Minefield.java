@@ -255,24 +255,37 @@ public class Minefield extends JPanel
     {
         byte opened = 0; 
         
-        for(int i = 0 ; i < this.lstAvailable.size(); i++) 
-        {
-            if (this.lstAvailable.get(i).getState() == TileState.OPEN)
+        for(int i = 0 ; i < this.shrWidth; i++) 
             {
-                opened += 1; 
+             for(int j = 0 ; j < this.shrHeight; j++) 
+             {
+                    if (this.arrGrid[j][i].getIsMine() == false && this.arrGrid[j][i].getState() == TileState.CLOSED)
+                    {
+                        return false; 
+                    }
+             }
             }
-    
-        }
         
-        if (opened == this.lstAvailable.size())
-        {
-            System.out.println("u won"); 
+        
+        return true; 
+        
+        // for(int i = 0 ; i < this.lstAvailable.size(); i++) 
+        // {
+            // if (this.lstAvailable.get(i).getState() == TileState.OPEN)
+            // {
+                // opened += 1; 
+            // }
+        // }
+        
+        // if (opened == this.lstAvailable.size())
+        // {
+            // System.out.println("u won"); 
             
-            return true; 
-        }
-        else
-        {
-            return false; 
-        }
+            // return true; 
+        // }
+        // else
+        // {
+            // return false; 
+        // }
     }
 }
