@@ -33,6 +33,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     private int intTimer;
     private boolean isRunning;
     private boolean hasClicked;
+    private boolean isWon;
 
     /**CONSTRUCTOR**/
     public Game() {
@@ -129,8 +130,11 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     public Minefield getMineField() {
         return this.mineField;
     }
-    public int getTimer() {
-        return this.intTimer;
+    public int getTime() {
+        return this.timer.getTime();
+    }
+    public boolean isWon() {
+        return this.isWon;
     }
 
     public Image loadImage(String strFileName) {
@@ -286,6 +290,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
                 if (hasLost == true)
                 {
                     this.mineField.revealMines(); 
+                    player.saveToFile(this);
+                    
                 }
             }
             else {
