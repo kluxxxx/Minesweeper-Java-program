@@ -204,6 +204,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         // added to test revealmine class
         boolean hasLost; 
+        boolean a; 
+        boolean b;
         
         if (this.hasClicked) {
             hasLost = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
@@ -228,21 +230,60 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         // this.mineField.openTile(clicked);
         
         // added to test revealMine class
+  
+        // b = this.mineField.ifWon(); 
         
-        
-        
+        // if (a == true)
+        // {
+            // this.mineField.revealMines(); 
+        // }
+        // else if (b == true)
+        // {
+            // System.out.println("yay"); 
+        // }
         
     }
     
     @Override
     public void mouseClicked(MouseEvent e) {
+        Tile clicked = (Tile) e.getSource();
+        
         //Detect if the use right clicked or left clicked
         //BUTTON1 = left click
         //BUTTON2 = middle click
         //BUTTON3 = r click
-        if (e.getButton() == MouseEvent.BUTTON3) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            System.out.println("LEFT CLICK");
+            
+            boolean hasLost; 
+            boolean a; 
+            boolean b;
+            
+            if (this.hasClicked) {
+                hasLost = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
+                
+                if (hasLost == true)
+                {
+                    this.mineField.revealMines(); 
+                }
+            }
+            else {
+                this.mineField.generateMines(50, clicked.getRow(), clicked.getColumn() );
+                
+                this.hasClicked = true;
+                
+                this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
+                
+                Thread timerThread = new Thread(this.timer);
+                
+                timerThread.start();
+            }
+            
+        }
+        else if (e.getButton() == MouseEvent.BUTTON3) {
             System.out.println("RIGHT CLICK");
         }
+        
     }
 
     @Override
