@@ -263,6 +263,7 @@ public class Minefield extends JPanel
              }
             }
         
+            System.out.println("ok"); 
         return true; 
     }
     
@@ -290,6 +291,6 @@ public class Minefield extends JPanel
     {
         int i = (int)(Math.random() * this.lstMines.size());
         
-        
+        this.lstMines.get(i).setBackground(Color.RED);
     }
 }

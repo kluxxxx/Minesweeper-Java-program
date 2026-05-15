@@ -204,7 +204,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        //idk if it was on purpose but this line was gone when i updated so i added it back for testing
+        Tile clicked = (Tile) e.getSource(); 
 
         // added to test revealmine class
         boolean hasLost; 
@@ -215,10 +216,17 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         if (this.hasClicked) {
             hasLost = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
             
+            b = this.mineField.ifWon();
+            
             if (hasLost == true)
             {
                 this.mineField.revealMines(); 
             }
+            else if (b == true)
+            {
+                System.out.println("yay"); 
+            }
+
         }
         else {
             this.mineField.generateMines(50, clicked.getRow(), clicked.getColumn() );
@@ -246,7 +254,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         // {
             // System.out.println("yay"); 
         // }
-=======>>>>>>> 3cc47725037951fc2f11ce88f5bbcb21116d7a13
+
         
     }
     
