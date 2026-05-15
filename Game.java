@@ -203,6 +203,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         // added to test revealmine class
         boolean a; 
+        boolean b;
         
         if (this.hasClicked) {
             
@@ -218,9 +219,15 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         // added to test revealMine class
         a = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
         
+        b = this.mineField.ifWon(); 
+        
         if (a == true)
         {
             this.mineField.revealMines(); 
+        }
+        else if (b == true)
+        {
+            System.out.println("yay"); 
         }
         
     }

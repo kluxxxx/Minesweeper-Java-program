@@ -236,7 +236,7 @@ public class Minefield extends JPanel
        return false; 
     }
     
-
+    // method to reveal the location of all mines when game is lost
     public void revealMines ()
     {
         for(int i = 0 ; i < this.shrWidth; i++) 
@@ -251,9 +251,10 @@ public class Minefield extends JPanel
             }
     }
     
+    // check if won
     public boolean ifWon()
     {
-        byte opened = 0; 
+        // byte opened = 0; 
         
         for(int i = 0 ; i < this.shrWidth; i++) 
             {
