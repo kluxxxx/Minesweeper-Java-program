@@ -24,14 +24,13 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     private JButton btnMenu;
     private JButton btnSettings;
     
-    private JLabel timeDisplay;
+    private Timer timer;
     private JLabel minesDisplay;
     
     /**DECLARE GAME INSTANCE VARIABLES**/
     private Player player;
     private Minefield mineField;
-    private int intStartMilis;
-    private int intMilisElapsed;
+    private int intTimer;
     private boolean isRunning;
     private boolean hasClicked;
 
@@ -54,8 +53,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         this.player = new Player();
         
-        this.intStartMilis = 0;
-        this.intMilisElapsed = 0;
+        this.intTimer = 0;
         this.hasClicked = false;
     }
     
@@ -101,15 +99,15 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         this.minesDisplay.setLocation(HUD_SPACING, HUD_SPACING);
         this.hud.add(minesDisplay);
         
-        this.timeDisplay = new JLabel("000", JLabel.CENTER);
-        this.timeDisplay.setOpaque(true);
-        this.timeDisplay.setFont(new Font("Monospaced",Font.BOLD,(int)(HUD_SIZE * 0.9f)));
-        this.timeDisplay.setSize((int)(HUD_SIZE * 1.9f), HUD_SIZE);
-        this.timeDisplay.setBackground(Color.BLACK);
-        this.timeDisplay.setForeground(Color.RED);
-        this.timeDisplay.setBorder(BorderFactory.custom(2,SHADOWS,HIGHLIGHTS,this.timeDisplay));
-        this.timeDisplay.setLocation(this.hud.getWidth() - this.timeDisplay.getWidth() - HUD_SPACING, HUD_SPACING);
-        this.hud.add(timeDisplay);
+        this.timer = new Timer();
+        this.timer.setOpaque(true);
+        this.timer.setFont(new Font("Monospaced",Font.BOLD,(int)(HUD_SIZE * 0.9f)));
+        this.timer.setSize((int)(HUD_SIZE * 1.9f), HUD_SIZE);
+        this.timer.setBackground(Color.BLACK);
+        this.timer.setForeground(Color.RED);
+        this.timer.setBorder(BorderFactory.custom(2,SHADOWS,HIGHLIGHTS,this.timer));
+        this.timer.setLocation(this.hud.getWidth() - this.timer.getWidth() - HUD_SPACING, HUD_SPACING);
+        this.hud.add(timer);
         
         
         this.setPreferredSize(new Dimension(
@@ -131,11 +129,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     public Minefield getMineField() {
         return this.mineField;
     }
-    public int getStartMilis() {
-        return this.intStartMilis;
-    }
-    public int getMilElapsed() {
-        return this.intMilisElapsed;
+    public int getTimer() {
+        return this.intTimer;
     }
 
     public Image loadImage(String strFileName) {
@@ -172,20 +167,26 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         ));
     }
     
-    public void run() {
-        final float FPS = 120;
-        final int DT = (int) (1000f / FPS);
+    public void startTimer() {
+    
+        final int deltaT = 1000;
         
+        this.intTimer = 0;
         this.isRunning = true;
         
         while(this.isRunning) {
             
+            //Update timer
+            this.intTimer++;
+            
+            //Update label
+            this.timer.setText(""+intTimer);
             
             
-            
+            //Wait 1 second
             try
             {
-                Thread.sleep(DT);
+                Thread.sleep(deltaT);
             }
             catch (InterruptedException ie)
             {
@@ -202,26 +203,34 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         Tile clicked = (Tile) e.getSource();
         
         // added to test revealmine class
-        boolean a; 
+        boolean hasLost; 
         
         if (this.hasClicked) {
+            hasLost = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
             
+            if (hasLost == true)
+            {
+                this.mineField.revealMines(); 
+            }
         }
         else {
             this.mineField.generateMines(50, clicked.getRow(), clicked.getColumn() );
             
             this.hasClicked = true;
+            
+            this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
+            
+            Thread timerThread = new Thread(this.timer);
+            
+            timerThread.start();
         }
         
         // this.mineField.openTile(clicked);
         
         // added to test revealMine class
-        a = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
         
-        if (a == true)
-        {
-            this.mineField.revealMines(); 
-        }
+        
+        
         
     }
     
