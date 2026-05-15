@@ -251,28 +251,28 @@ public class Minefield extends JPanel
             }
     }
     
-    // public boolean ifWon()
-    // {
-        // byte opened = 0; 
+    public boolean ifWon()
+    {
+        byte opened = 0; 
         
-        // for(int i = 0 ; i < this.lstAvailable.size(); i++) 
-        // {
-            // if (this.lstAvailable.get(i).getState() == TileState.OPEN)
-            // {
-                // opened += 1; 
-            // }
+        for(int i = 0 ; i < this.lstAvailable.size(); i++) 
+        {
+            if (this.lstAvailable.get(i).getState() == TileState.OPEN)
+            {
+                opened += 1; 
+            }
     
-        // }
+        }
         
-        // if (opened == this.lstAvailable.size())
-        // {
-            // System.out.println("u won"); 
+        if (opened == this.lstAvailable.size())
+        {
+            System.out.println("u won"); 
             
-            // return true; 
-        // }
-        // else
-        // {
-            // return false; 
-        // }
-    // }
+            return true; 
+        }
+        else
+        {
+            return false; 
+        }
+    }
 }
