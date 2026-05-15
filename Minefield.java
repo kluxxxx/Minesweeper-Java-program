@@ -267,4 +267,22 @@ public class Minefield extends JPanel
         
         return true; 
     }
+    
+    public void flagTile(Tile tileClicked)
+    {
+        if(tileClicked.getState() != TileState.OPEN)
+        {
+             if (tileClicked.getState() == TileState.FLAGGED)
+             {
+                 tileClicked.setState(TileState.CLOSED);  
+             }
+             else
+             {
+                 tileClicked.setState(TileState.FLAGGED); 
+                 
+                 tileClicked.setText("f"); 
+             }
+             
+        }
+    }
 }
