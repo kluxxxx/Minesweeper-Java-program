@@ -59,6 +59,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         this.hasClicked = false;
     }
     
+    //create a method that will generate all the ui components for the playable game
     private void generateUI() {        
         final int SPACING = 14;
         final int HUD_SPACING = 12;
@@ -138,7 +139,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         return this.isWon;
     }
 
-    
+    //create a method that will time the user from the start of the game to the end of there gmae and is stopped through victory or loss
     public void startTimer() {
     
         final int deltaT = 1000;
@@ -268,7 +269,6 @@ public class Game extends JPanel implements ActionListener, MouseListener{
                 {
                     this.mineField.revealMines(); 
                     this.timer.end();
-                    player.saveToFile(this);
                     
                     
                 }
@@ -277,6 +277,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
                     
                     this.timer.end();
                 }
+                player.updateStats(this);
+                player.saveToFile();
             }
             else {
                 this.mineField.generateMines(40, clicked.getRow(), clicked.getColumn() );
