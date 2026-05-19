@@ -276,10 +276,7 @@ public class Minefield extends JPanel
              if (tileClicked.getState() == TileState.FLAGGED)
              {
                  tileClicked.setState(TileState.CLOSED); 
-                 
-
-
-                 
+                
                  bytFlagged += 1; 
 
                  tileClicked.setIcon(null); 
@@ -288,9 +285,7 @@ public class Minefield extends JPanel
              else
              {
                  tileClicked.setState(TileState.FLAGGED); 
-                 
-
-                 
+                
                  bytFlagged -= 1; 
 
                  tileClicked.setIcon(IconManager.loadIcon("flagged.png", 24, 24)); 
