@@ -1,5 +1,3 @@
-
-
 /**
  * Write a description of class Tile here.
  *
@@ -54,7 +52,6 @@ public class Tile extends JButton
         return this.tileState;
    }
    
-   
    // setters
    public void setIsMine(boolean s) 
    {
@@ -66,6 +63,18 @@ public class Tile extends JButton
         this.tileState = t;
    }
    
+   public void setRow(short r) 
+    {
+        this.shrRow = r;
+    }
+    
+   public void setColumn(short c) 
+   {
+        this.shrCol = c;
+   }
+   
+   
+   // method to check if tile is open
    public boolean isOpen()
    {
        return this.tileState == TileState.OPEN; 

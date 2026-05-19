@@ -2,8 +2,9 @@
 /**
  * Write a description of class Minefield here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @AUTHOR (SHARON)
+ * @CONTRIBUTORS: (Darrell Leung, Nathan Huang, Sharon Li)
+ * @DATE (2026/05/11)
  */
 // import Arraylist to store available tiles
 import java.util.ArrayList; 
@@ -275,10 +276,7 @@ public class Minefield extends JPanel
              if (tileClicked.getState() == TileState.FLAGGED)
              {
                  tileClicked.setState(TileState.CLOSED); 
-                 
-
-
-                 
+                
                  bytFlagged += 1; 
 
                  tileClicked.setIcon(null); 
@@ -287,9 +285,7 @@ public class Minefield extends JPanel
              else
              {
                  tileClicked.setState(TileState.FLAGGED); 
-                 
-
-                 
+                
                  bytFlagged -= 1; 
 
                  tileClicked.setIcon(IconManager.loadIcon("flagged.png", 24, 24)); 
