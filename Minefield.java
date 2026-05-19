@@ -227,7 +227,7 @@ public class Minefield extends JPanel
            }
            else 
            {
-               tile.setText("" + minesCount); 
+               tile.setIcon(IconManager.loadNumber(minesCount, 21,21)); 
            }
        }
        
@@ -276,17 +276,25 @@ public class Minefield extends JPanel
              {
                  tileClicked.setState(TileState.CLOSED); 
                  
+
                  tileClicked.setText(""); 
                  
                  bytFlagged += 1; 
+
+                 tileClicked.setIcon(null); 
+
              }
              else
              {
                  tileClicked.setState(TileState.FLAGGED); 
                  
+
                  tileClicked.setText("f"); 
                  
                  bytFlagged -= 1; 
+
+                 tileClicked.setIcon(IconManager.loadIcon("flagged.png", 24, 24)); 
+
              }
              
         }
