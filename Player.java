@@ -8,25 +8,27 @@ import java.io.*;
 public class Player implements java.io.Serializable
 {
     // declare all instance variables
-    final String FILE_NAME = "Player.txt";
+    final String FILE_NAME;
     int intHighScore;
     int intGamesPlayed;
     int intTotalTimePlayed;
     int intGamesWon;
     int intGamesLost;
     
+    
     /**CONSTRUCTOR**/
-    public Player(){
-        int intHighScore = Integer.MAX_VALUE;
-        int intGamesPlayed = 0;
-        int intTotalTimePlayed = 0;
-        int intGamesWon = 0;
-        int intGamesLost = 0;
+    public Player(String n){
+        intHighScore = Integer.MAX_VALUE;
+        intGamesPlayed = 0;
+        intTotalTimePlayed = 0;
+        intGamesWon = 0;
+        intGamesLost = 0;
+        this.FILE_NAME = n + ".txt";
     }
     
     //create a method that will update all statistics before its saved to file
     public void updateStats(Game game){
-        Player player = new Player();
+        Player player = new Player(this.FILE_NAME);
             
         //update total time aplication has been runned for on that device
         player.intTotalTimePlayed += game.getTime();
@@ -63,8 +65,8 @@ public class Player implements java.io.Serializable
     public void loadFromFile(){
         try{
             //use object input stream to load player statistics from file to object variables
-            Player player = new Player();
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME));
+            Player player = new Player(this.FILE_NAME);
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(player.FILE_NAME));
             player = (Player)in.readObject();
             in.close();
         }catch(FileNotFoundException e) {
@@ -75,6 +77,7 @@ public class Player implements java.io.Serializable
         }catch (ClassNotFoundException e){
             System.out.println("Error: Object'c class does not match");
         }
+        System.out.println(this.toString());
     }
     
     //create a to string that will return the users statistics to be displayed through gui elements as well as calculate the player winrate

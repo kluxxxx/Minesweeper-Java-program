@@ -53,7 +53,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         
         this.generateUI();
         
-        this.player = new Player();
+        this.player = new Player("darrell");
         
         this.intTimer = 0;
         this.hasClicked = false;
