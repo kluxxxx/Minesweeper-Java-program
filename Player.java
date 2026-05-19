@@ -24,22 +24,10 @@ public class Player implements java.io.Serializable
         int intGamesLost = 0;
     }
     
-
-    //create a method that will run everything inside of it
-    public void Run(){
-        loadFromFile();
-        
-        
-    }
-    // create a method that will update the playes statistic based off of the previous game played and save it to file
-    public void saveToFile(Game game){
-        try{
-            Player player = new Player();
-
     //create a method that will update all statistics before its saved to file
     public void updateStats(Game game){
         Player player = new Player();
-
+            
         //update total time aplication has been runned for on that device
         player.intTotalTimePlayed += game.getTime();
             
