@@ -2,8 +2,9 @@
 /**
  * Write a description of class Minefield here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @AUTHOR (SHARON)
+ * @CONTRIBUTORS: (Darrell Leung, Nathan Huang, Sharon Li)
+ * @DATE (2026/05/11)
  */
 // import Arraylist to store available tiles
 import java.util.ArrayList; 
