@@ -30,6 +30,7 @@ public class Game extends JPanel implements ActionListener, MouseListener{
     /**DECLARE GAME INSTANCE VARIABLES**/
     private Player player;
     private Minefield mineField;
+    private byte bytMinesRemaining = 40;
     private int intTimer;
     private boolean isRunning;
     private boolean hasClicked;
@@ -272,6 +273,8 @@ public class Game extends JPanel implements ActionListener, MouseListener{
                     
                 }
                 else if (hasWon) {
+                    System.out.println("ok"); 
+                    
                     this.timer.end();
                 }
             }
@@ -290,8 +293,13 @@ public class Game extends JPanel implements ActionListener, MouseListener{
         }
         else if (e.getButton() == MouseEvent.BUTTON3) {
             //System.out.println("RIGHT CLICK");
+             
             
-            this.mineField.flagTile(clicked); 
+            bytMinesRemaining += this.mineField.flagTile(clicked); 
+            
+            System.out.println("" + bytMinesRemaining);
         }
     }
+    
+    
 }
