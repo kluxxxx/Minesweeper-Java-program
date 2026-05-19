@@ -133,7 +133,7 @@ public class Minefield extends JPanel
     }
     
     
-    public void generateMines(int intNumMines, short shrRow, short shrCol)
+    public void generateMines(short shrRow, short shrCol)
     {
         Tile addmine; 
         
@@ -151,7 +151,7 @@ public class Minefield extends JPanel
             }
         }
         
-        for (int i = 0; i < intNumMines; i++)
+        for (int i = 0; i < this.intMines; i++)
         {
             addmine = this.lstAvailable.get((int)(Math.random() * this.lstAvailable.size())); 
             

@@ -13,10 +13,15 @@ import java.io.File;
  @DATE (2026/05/11)
 */
 public class Game extends JPanel implements MouseListener{
-    
+    /**CONSTANTS**/
     final Color DEFAULT = new Color(188,188,188);
     final Color SHADOWS = new Color(122,122,122);
     final Color HIGHLIGHTS = new Color(254,254,254);
+    
+    final int SPACING = 14;
+    final int HUD_SPACING = 12;
+    final int HUD_HEIGHT =  70;
+    final int HUD_SIZE = HUD_HEIGHT - HUD_SPACING * 2;
     
     /**DECLARE SWING COMPONENTS**/
     private JFrame frame;
@@ -61,10 +66,7 @@ public class Game extends JPanel implements MouseListener{
     
     //create a method that will generate all the ui components for the playable game
     private void generateUI() {        
-        final int SPACING = 14;
-        final int HUD_SPACING = 12;
-        final int HUD_HEIGHT =  70;
-        final int HUD_SIZE = HUD_HEIGHT - HUD_SPACING * 2;
+        
         
         //Generate the minefield grid
         this.mineField.setBackground(DEFAULT);
@@ -187,7 +189,9 @@ public class Game extends JPanel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e){
-        
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            this.btnMenu.setIcon(IconManager.loadIcon("smiley_surprise.png", HUD_SIZE - 15, HUD_SIZE - 15));
+        }
     }
 
     @Override
@@ -211,26 +215,36 @@ public class Game extends JPanel implements MouseListener{
                 if (hasLost)
                 {
                     this.mineField.revealMines(); 
+                    this.btnMenu.setIcon(IconManager.loadIcon("smiley_lost.png", HUD_SIZE - 15, HUD_SIZE - 15));
                     this.timer.end();
                     
-                    
+                    player.updateStats(this, false);
+                    player.saveToFile();
                 }
                 else if (hasWon) {
                     System.out.println("yay"); 
-                    
+                    this.btnMenu.setIcon(IconManager.loadIcon("smiley_won.png", HUD_SIZE - 15, HUD_SIZE - 15));
                     this.timer.end();
+                    
+                    player.updateStats(this, true);
+                    player.saveToFile();
                 }
-                player.updateStats(this);
-                player.saveToFile();
+                else {
+                    this.btnMenu.setIcon(IconManager.loadIcon("smiley.png", HUD_SIZE - 15, HUD_SIZE - 15));
+        
+                }
+                
             }
             else {
-                this.mineField.generateMines(40, clicked.getRow(), clicked.getColumn() );
+                this.mineField.generateMines(clicked.getRow(), clicked.getColumn() );
                 
                 this.hasClicked = true;
                 
                 this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
-                
+                this.btnMenu.setIcon(IconManager.loadIcon("smiley.png", HUD_SIZE - 15, HUD_SIZE - 15));
+        
                 Thread timerThread = new Thread(this.timer);
+                
                 
                 timerThread.start();
             }

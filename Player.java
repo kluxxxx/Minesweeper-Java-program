@@ -27,14 +27,14 @@ public class Player implements java.io.Serializable
     }
     
     //create a method that will update all statistics before its saved to file
-    public void updateStats(Game game){
+    public void updateStats(Game game, boolean hasWon){
         Player player = new Player(this.FILE_NAME);
             
         //update total time aplication has been runned for on that device
         player.intTotalTimePlayed += game.getTime();
             
         //create an if statement that will check game method won or lost and update the total games wona and lost counter and if game is won and time is lower then highscore counter will be updated
-        if(game.isWon()){
+        if(hasWon){
             player.intGamesWon++;
             if(game.getTime()< player.intHighScore ){
                 player.intHighScore = game.getTime();

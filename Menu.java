@@ -32,6 +32,7 @@ public class Menu extends JPanel
         final int SPACING = 14;
         
         this.btnEasy = new JToggleButton("EASY");
+        this.btnEasy.setLocation(SPACING, SPACING);
         this.btnEasy.setSize(this.getWidth() - SPACING * 2, 50);
         this.btnEasy.setBackground(DEFAULT);
         this.btnEasy.setBorder(BorderFactory.custom(4,SHADOWS,HIGHLIGHTS,this.btnEasy));
