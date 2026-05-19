@@ -15,7 +15,7 @@ public class Player implements java.io.Serializable
     int intGamesWon;
     int intGamesLost;
     
-    //set default values based off default constructor
+    /**CONSTRUCTOR**/
     public Player(){
         int intHighScore = Integer.MAX_VALUE;
         int intGamesPlayed = 0;
@@ -24,6 +24,7 @@ public class Player implements java.io.Serializable
         int intGamesLost = 0;
     }
     
+
     //create a method that will run everything inside of it
     public void Run(){
         loadFromFile();
@@ -34,27 +35,34 @@ public class Player implements java.io.Serializable
     public void saveToFile(Game game){
         try{
             Player player = new Player();
+
+    //create a method that will update all statistics before its saved to file
+    public void updateStats(Game game){
+        Player player = new Player();
+
+        //update total time aplication has been runned for on that device
+        player.intTotalTimePlayed += game.getTime();
             
-            //update total time aplication has been runned for on that device
-            player.intTotalTimePlayed += game.getTime();
-            
-            //create an if statement that will check game method won or lost and update the total games wona and lost counter
-            if(game.isWon()){
-                player.intGamesWon++;
-            }else{
-                player.intGamesLost++;
-            }
-            
-            //update total games played
-            player.intGamesPlayed++;
-            
-            //create a if statement that will update the highscore if the time is less than previous score
-            if(game.getTime()< player.intHighScore){
+        //create an if statement that will check game method won or lost and update the total games wona and lost counter and if game is won and time is lower then highscore counter will be updated
+        if(game.isWon()){
+            player.intGamesWon++;
+            if(game.getTime()< player.intHighScore ){
                 player.intHighScore = game.getTime();
             }
+        }else{
+            player.intGamesLost++;
+        }
             
+        //update total games played
+        player.intGamesPlayed++;
+    }
+    
+    // create a method that will save player statistics to file
+    public void saveToFile(){
+        try{
+            // use object output stream to write the whole object to file
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_NAME));
-            out.writeObject(player);
+            out.writeObject(this);
             out.close();
         }catch(FileNotFoundException e) {
             
@@ -66,14 +74,16 @@ public class Player implements java.io.Serializable
     // create a method that will load pevious game stats from file to game
     public void loadFromFile(){
         try{
+            //use object input stream to load player statistics from file to object variables
             Player player = new Player();
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME));
             player = (Player)in.readObject();
             in.close();
         }catch(FileNotFoundException e) {
-            
+            //if player is new to the game then player defaults will be set and saved to player file
+            saveToFile();
         }catch(IOException e) {
-            System.out.println("Error: Cannot read from file");
+            
         }catch (ClassNotFoundException e){
             System.out.println("Error: Object'c class does not match");
         }
