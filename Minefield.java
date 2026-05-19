@@ -277,7 +277,7 @@ public class Minefield extends JPanel
                  tileClicked.setState(TileState.CLOSED); 
                  
 
-                 tileClicked.setText(""); 
+
                  
                  bytFlagged += 1; 
 
@@ -289,7 +289,6 @@ public class Minefield extends JPanel
                  tileClicked.setState(TileState.FLAGGED); 
                  
 
-                 tileClicked.setText("f"); 
                  
                  bytFlagged -= 1; 
 
