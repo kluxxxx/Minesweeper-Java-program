@@ -263,12 +263,13 @@ public class Minefield extends JPanel
              }
             }
         
-            System.out.println("ok"); 
         return true; 
     }
     
-    public void flagTile(Tile tileClicked)
+    public byte flagTile(Tile tileClicked)
     {
+        byte bytFlagged = 0; 
+        
         if(tileClicked.getState() != TileState.OPEN)
         {
              if (tileClicked.getState() == TileState.FLAGGED)
@@ -276,15 +277,21 @@ public class Minefield extends JPanel
                  tileClicked.setState(TileState.CLOSED); 
                  
                  tileClicked.setText(""); 
+                 
+                 bytFlagged += 1; 
              }
              else
              {
                  tileClicked.setState(TileState.FLAGGED); 
                  
                  tileClicked.setText("f"); 
+                 
+                 bytFlagged -= 1; 
              }
              
         }
+        
+        return bytFlagged; 
     }
     
     public void revealHint()
