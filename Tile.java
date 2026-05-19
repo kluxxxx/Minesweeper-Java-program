@@ -73,10 +73,13 @@ public class Tile extends JButton
         this.shrCol = c;
    }
    
-   
    // method to check if tile is open
    public boolean isOpen()
    {
        return this.tileState == TileState.OPEN; 
+   }
+   
+   public void revealTile() {
+       
    }
 }

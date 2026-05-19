@@ -54,7 +54,7 @@ public class Game extends JPanel implements MouseListener{
         //this.frame.setIconImage(new Image("textures//minesweeper_icon.png"));
         this.frame.show();
         
-        this.mineField = new Minefield((short)10, (short)15, 40);
+        this.mineField = new Minefield((short)10, (short)15, 40, 32);
         
         this.generateUI();
         
@@ -70,7 +70,7 @@ public class Game extends JPanel implements MouseListener{
         
         //Generate the minefield grid
         this.mineField.setBackground(DEFAULT);
-        this.mineField.generateGrid(this, HIGHLIGHTS, SHADOWS, 32);
+        this.mineField.generateGrid(this, HIGHLIGHTS, SHADOWS);
         final int WIDTH = this.mineField.getWidth() + SPACING * 2;
         
         this.hud = new JPanel(null);
@@ -198,6 +198,7 @@ public class Game extends JPanel implements MouseListener{
     public void mouseReleased(MouseEvent e) {
         Tile clicked = (Tile) e.getSource();
         
+        final MatteBorder OPEN_BORDER = new MatteBorder(1,1,0,0,SHADOWS);
         //Detect if the use right clicked or left clicked
         //BUTTON1 = left click
         //BUTTON2 = middle click
@@ -209,12 +210,12 @@ public class Game extends JPanel implements MouseListener{
             boolean hasWon; 
             
             if (this.hasClicked) {
-                hasLost = this.mineField.openTile(clicked, new MatteBorder(1,1,0,0,SHADOWS));
+                hasLost = this.mineField.openTile(clicked, OPEN_BORDER);
                 hasWon = this.mineField.ifWon();
                 
                 if (hasLost)
                 {
-                    this.mineField.revealMines(); 
+                    this.mineField.revealMines(clicked, OPEN_BORDER); 
                     this.btnMenu.setIcon(IconManager.loadIcon("smiley_lost.png", HUD_SIZE - 15, HUD_SIZE - 15));
                     this.timer.end();
                     
