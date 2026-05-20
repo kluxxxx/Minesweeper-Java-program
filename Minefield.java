@@ -255,7 +255,7 @@ public class Minefield extends JPanel
                 Tile currentTile = this.arrGrid[j][i];
                 currentTile.setEnabled(false);
                 
-                if (currentTile.getIsMine() == true)
+                if (currentTile.getIsMine() == true && currentTile.getState() != TileState.FLAGGED)
                 {
                     
                     currentTile.setBorder(openBorder);
@@ -269,7 +269,7 @@ public class Minefield extends JPanel
                     //this.arrGrid[j][i].setBackground(Color.RED); 
                     //this.arrGrid[j][i].setIcon();
                 }
-                else if (currentTile.getState() == TileState.FLAGGED) {
+                else if (currentTile.getIsMine() == false && currentTile.getState() == TileState.FLAGGED) {
                     currentTile.setBorder(openBorder);
                     currentTile.setIcon(IconManager.loadIcon("mine_crossed.png", intIconSize, intIconSize));
                     
