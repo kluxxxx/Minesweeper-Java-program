@@ -258,8 +258,6 @@ public class Game extends JPanel implements MouseListener{
             this.intMinesRemaining += this.mineField.flagTile(clicked); 
             
             this.minesDisplay.setText(String.format("%03d", this.intMinesRemaining));
-            
-            System.out.println("" + intMinesRemaining);
         }
     }
     
