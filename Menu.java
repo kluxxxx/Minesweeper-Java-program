@@ -25,14 +25,14 @@ public class Menu extends JPanel
     //Swing objects
     private JButton btnEasy, btnMedium, btnHard, btnCustom;
     
+    private JTextField inputWidth, inputHeight, inputMines;
+    
     private ArrayList<JButton> lstButtons;
     
     private JFrame menuFrame, gameFrame;
     
     private JButton btnStats, btnLeaderBoard, btnSmiley;
-    
-    private JSlider inputWidth, inputHeight, inputMines;
-    
+        
     //Other instance variables
     private  String strDifficulty;
     private short shrWidth, shrHeight;
@@ -151,24 +151,24 @@ public class Menu extends JPanel
         } );
         this.add(btnSmiley);
         
-        final int SLIDER_WIDTH = template.getWidth() / 3;
-        this.inputWidth = this.defaultSlider(10, 80, 15);  //min, max, val
-        this.inputWidth.setSize(SLIDER_WIDTH, 100);
-        this.inputWidth.setLocation(template.getX(), this.btnCustom.getY() + BTN_SIZE + V_SPACING);
-        this.inputWidth.setBackground(DEFAULT);
-        this.add(inputWidth);
+        // final int SLIDER_WIDTH = template.getWidth() / 3;
+        // this.inputWidth = this.defaultSlider(10, 80, 15);  //min, max, val
+        // this.inputWidth.setSize(SLIDER_WIDTH, 100);
+        // this.inputWidth.setLocation(template.getX(), this.btnCustom.getY() + BTN_SIZE + V_SPACING);
+        // this.inputWidth.setBackground(DEFAULT);
+        // this.add(inputWidth);
         
-        this.inputHeight = this.defaultSlider( 10, 80, 15);  //min, max, val
-        this.inputHeight.setSize(SLIDER_WIDTH, 100);
-        this.inputHeight.setLocation(template.getX() + SLIDER_WIDTH, this.btnCustom.getY() + BTN_SIZE + V_SPACING);
-        this.inputHeight.setBackground(DEFAULT);
-        this.add(inputHeight);
+        // this.inputHeight = this.defaultSlider( 10, 80, 15);  //min, max, val
+        // this.inputHeight.setSize(SLIDER_WIDTH, 100);
+        // this.inputHeight.setLocation(template.getX() + SLIDER_WIDTH, this.btnCustom.getY() + BTN_SIZE + V_SPACING);
+        // this.inputHeight.setBackground(DEFAULT);
+        // this.add(inputHeight);
         
-        this.inputMines = this.defaultSlider( 10, 80, 15);  //min, max, val
-        this.inputMines.setSize(SLIDER_WIDTH, 100);
-        this.inputMines.setLocation(template.getX() + SLIDER_WIDTH * 2, this.btnCustom.getY() + BTN_SIZE + V_SPACING);
-        this.inputMines.setBackground(DEFAULT);
-        this.add(inputMines);
+        // this.inputMines = this.defaultSlider( 10, 80, 15);  //min, max, val
+        // this.inputMines.setSize(SLIDER_WIDTH, 100);
+        // this.inputMines.setLocation(template.getX() + SLIDER_WIDTH * 2, this.btnCustom.getY() + BTN_SIZE + V_SPACING);
+        // this.inputMines.setBackground(DEFAULT);
+        // this.add(inputMines);
         
     }
     
