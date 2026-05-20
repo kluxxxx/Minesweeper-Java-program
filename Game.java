@@ -220,7 +220,7 @@ public class Game extends JPanel implements MouseListener{
                     
                     this.timer.end();
                 }
-                player.updateStats(this);
+                player.updateStats(this,"EASY");
                 player.saveToFile();
             }
             else {
