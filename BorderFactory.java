@@ -15,7 +15,7 @@ public class BorderFactory
         return new MatteBorder(t,t,t,t,bevelIcon(
             c.getWidth(),
             c.getHeight(), 
-            c.getBackground().brighter().brighter(),
+            Color.WHITE,
             c.getBackground().darker()
         ));
     }
@@ -25,7 +25,7 @@ public class BorderFactory
             c.getWidth(),
             c.getHeight(), 
             c.getBackground().darker(), 
-            c.getBackground().brighter().brighter()
+            Color.WHITE
         ));
     }
     

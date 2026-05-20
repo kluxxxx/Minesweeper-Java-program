@@ -8,14 +8,14 @@ import java.io.*;
 public class Player implements java.io.Serializable
 {
     // declare all instance variables
-    final String FILE_NAME;
-    int intHighScoreEasy;
-    int intHighScoreMedium;
-    int intHighScoreHard;
-    int intGamesPlayed;
-    int intTotalTimePlayed;
-    int intGamesWon;
-    int intGamesLost;
+    private final String FILE_NAME;
+    private int intHighScoreEasy;
+    private int intHighScoreMedium;
+    private int intHighScoreHard;
+    private int intGamesPlayed;
+    private int intTotalTimePlayed;
+    private int intGamesWon;
+    private int intGamesLost;
     
     
     /**CONSTRUCTOR**/
@@ -43,12 +43,14 @@ public class Player implements java.io.Serializable
     }
     
     //create a method that will update all statistics before its saved to file
-    public void updateStats(Game game, String strDifficulty){    
+    public void updateStats(Game game,  String strDifficulty, boolean hasWon){    
+
         //update total time aplication has been runned for on that device
         this.intTotalTimePlayed += game.getTime();
             
         //create an if statement that will check game method won or lost and update the total games wona and lost counter and if game is won and time is lower then highscore counter will be updated
-        if(game.isWon()){
+
+        if(hasWon){
             this.intGamesWon++;
             switch(strDifficulty){
                 case"EASY":
@@ -69,6 +71,7 @@ public class Player implements java.io.Serializable
                         intHighScoreMedium = game.getTime();
                     }
                  }break;
+
             }
         }else{
             this.intGamesLost++;

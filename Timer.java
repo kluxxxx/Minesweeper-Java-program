@@ -43,7 +43,7 @@ public class Timer extends JLabel implements Runnable
                 this.intTime++;
                 
                 //Update label
-                this.setText(""+intTime);
+                this.setText(String.format("%03d",intTime));
                 
             }
             

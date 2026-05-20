@@ -8,6 +8,6 @@
 public class MinesweeperMain
 {
     public static void main(String[] args) {
-        new Game();
+        new Menu(250,500);
     }
 }

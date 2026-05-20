@@ -32,14 +32,17 @@ public class Minefield extends JPanel
   
     // declare instance variable of type int for the amount of mines in the minefield
     private int intMines; 
+    
+    private int intTileSize;
 
     // constructor for class mineField 
-    public Minefield(short w, short h, int m)
+    public Minefield(short w, short h, int m, int s)
     {
         // call superclass JPanel constructor 
         super(null);
         
         // initialize instance variables
+        this.intTileSize = s;
         this.shrHeight = h; 
         this.shrWidth = w; 
         this.intMines = m; 
@@ -101,7 +104,7 @@ public class Minefield extends JPanel
     
     
     // code generate grid method
-    public void generateGrid(MouseListener ml, Color highlights, Color shadows, int tileSize)
+    public void generateGrid(MouseListener ml, Color highlights, Color shadows)
     {
         // initialize arrGrid
         this.arrGrid = new Tile[this.shrHeight][this.shrWidth]; 
@@ -110,15 +113,15 @@ public class Minefield extends JPanel
         
         // float fltTileSize = (intWidth - 5 * 2f) / this.shrWidth; 
         
-        this.setSize((this.shrWidth * tileSize) + 4 * 2, (this.shrHeight * tileSize) + 4 * 2); 
+        this.setSize((this.shrWidth * this.intTileSize) + 4 * 2, (this.shrHeight * this.intTileSize) + 4 * 2); 
         
         for(short i = 0; i < this.shrHeight; i++) 
         {
             for(short j = 0; j < this.shrWidth; j++) 
             {
                 Tile template = new Tile(i, j, false, TileState.CLOSED);
-                template.setSize(tileSize, tileSize);
-                template.setLocation((j * tileSize)+4, ( i * tileSize)+4);
+                template.setSize(this.intTileSize, this.intTileSize);
+                template.setLocation((j * this.intTileSize)+4, ( i * this.intTileSize)+4);
                 template.setBackground(this.getBackground());
                 template.setBorder(BorderFactory.custom(4,highlights,shadows,template));
                 template.addMouseListener(ml);
@@ -133,7 +136,7 @@ public class Minefield extends JPanel
     }
     
     
-    public void generateMines(int intNumMines, short shrRow, short shrCol)
+    public void generateMines(short shrRow, short shrCol)
     {
         Tile addmine; 
         
@@ -151,7 +154,7 @@ public class Minefield extends JPanel
             }
         }
         
-        for (int i = 0; i < intNumMines; i++)
+        for (int i = 0; i < this.intMines; i++)
         {
             addmine = this.lstAvailable.get((int)(Math.random() * this.lstAvailable.size())); 
             
@@ -180,7 +183,12 @@ public class Minefield extends JPanel
        short shrRow, shrCol; 
        byte minesCount =0 ; 
        
-       if(tile.getIsMine() == true)
+       //Check if the tile is flagged; if so, return false early
+       if (tile.getState() == TileState.FLAGGED) 
+       {
+           return false;
+       }
+       else if(tile.getIsMine() == true)
        {
            return true; 
        }
@@ -228,7 +236,8 @@ public class Minefield extends JPanel
            }
            else 
            {
-               tile.setIcon(IconManager.loadNumber(minesCount, 21,21)); 
+               int intIconSize = this.intTileSize - 8;
+               tile.setIcon(IconManager.loadNumber(minesCount, intIconSize,intIconSize)); 
            }
        }
        
@@ -236,18 +245,37 @@ public class Minefield extends JPanel
     }
     
     // method to reveal the location of all mines when game is lost
-    public void revealMines ()
+    public void revealMines (Tile clicked, AbstractBorder openBorder)
     {
         for(int i = 0 ; i < this.shrWidth; i++) 
             {
-             for(int j = 0 ; j < this.shrHeight; j++) 
-             {
-                    if (this.arrGrid[j][i].getIsMine() == true)
+            for(int j = 0 ; j < this.shrHeight; j++) 
+            {
+                int intIconSize = this.intTileSize - 2;
+                Tile currentTile = this.arrGrid[j][i];
+                currentTile.setEnabled(false);
+                
+                if (currentTile.getIsMine() == true && currentTile.getState() != TileState.FLAGGED)
+                {
+                    
+                    currentTile.setBorder(openBorder);
+                    currentTile.setIcon(IconManager.loadIcon("mine.png", intIconSize, intIconSize));
+                    
+                    if(clicked.equals(this.arrGrid[j][i])) 
                     {
-                        this.arrGrid[j][i].setBackground(Color.RED); 
+                        currentTile.setBackground(Color.RED);
                     }
-             }
+                    
+                    //this.arrGrid[j][i].setBackground(Color.RED); 
+                    //this.arrGrid[j][i].setIcon();
+                }
+                else if (currentTile.getIsMine() == false && currentTile.getState() == TileState.FLAGGED) {
+                    currentTile.setBorder(openBorder);
+                    currentTile.setIcon(IconManager.loadIcon("mine_crossed.png", intIconSize, intIconSize));
+                    
+                }
             }
+        }
     }
     
     // check if won
@@ -301,6 +329,6 @@ public class Minefield extends JPanel
     {
         int i = (int)(Math.random() * this.lstMines.size());
         
-        this.lstMines.get(i).setBackground(Color.RED);
+        //this.lstMines.get(i).setBackground(Color.RED);
     }
 }
