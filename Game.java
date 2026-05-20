@@ -106,8 +106,7 @@ public class Game extends JPanel implements MouseListener{
         this.hud.add(btnMenu);
         
         
-        
-        this.minesDisplay = new JLabel("010", JLabel.CENTER);
+        this.minesDisplay = new JLabel(String.format("%03d", this.intMinesRemaining), JLabel.CENTER);
         this.minesDisplay.setOpaque(true);
         this.minesDisplay.setFont(new Font("Monospaced",Font.BOLD,(int)(HUD_SIZE * 0.9f)));
         this.minesDisplay.setSize((int)(HUD_SIZE * 1.9f), HUD_SIZE);

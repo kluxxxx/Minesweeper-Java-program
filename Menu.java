@@ -34,7 +34,7 @@ public class Menu extends JPanel
     private JSlider inputWidth, inputHeight, inputMines;
     
     //Other instance variables
-    private  String strSize;
+    private  String strDifficulty;
     private short shrWidth, shrHeight;
 
     
@@ -115,7 +115,39 @@ public class Menu extends JPanel
         this.btnSmiley.setBorder(BorderFactory.outlined(4,HIGHLIGHTS,SHADOWS,2,SHADOWS,btnSmiley));
         this.btnSmiley.addActionListener((e) -> {
             this.hide();
-            new Game((short)10, (short)15, 25, this);
+            short width = 9;
+            short height = 9;
+            int mines= 10;
+            
+            switch(this.strDifficulty) {
+                case ("EASY"): {
+                    width = 9;
+                    height = 9;
+                    mines = 10;
+                    break;    
+                }
+                case ("MEDIUM"): {
+                    width = 16;
+                    height = 16;
+                    mines = 40;
+                    break;    
+                }
+                case ("HARD"): {
+                    width = 30;
+                    height = 16;
+                    mines = 99;
+                    break;    
+                }
+                case ("CUSTOM"): {
+                    width = 30;
+                    height = 16;
+                    mines = 99;
+                    break;    
+                } 
+            }
+            
+            
+            new Game(width, height, mines, this);
         } );
         this.add(btnSmiley);
         
@@ -168,6 +200,7 @@ public class Menu extends JPanel
         btn.addActionListener(e-> {
             btn.setSelected(true);
             btn.setBorder(BorderFactory.outlined(4,SHADOWS,HIGHLIGHTS,2,SHADOWS,btn));
+            this.strDifficulty = text;
             //btn.setBackground(SHADOWS);
             for (JButton b : this.lstButtons) {
                  
