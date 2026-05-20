@@ -27,6 +27,8 @@ public class Menu extends JPanel
     
     private ArrayList<JButton> lstButtons;
     
+    private JFrame menuFrame, gameFrame;
+    
     private JButton btnStats, btnLeaderBoard, btnSmiley;
     
     private JSlider inputWidth, inputHeight, inputMines;
@@ -34,6 +36,7 @@ public class Menu extends JPanel
     //Other instance variables
     private  String strSize;
     private short shrWidth, shrHeight;
+
     
     
     
@@ -49,10 +52,33 @@ public class Menu extends JPanel
         this.btnEasy.doClick();
         
         
-        JFrame test= new JFrame("Menu");
-        test.setContentPane(this);
-        test.pack();
-        test.show();
+        this.menuFrame = new JFrame("Menu");
+        this.menuFrame.setContentPane(this);
+        this.menuFrame.pack();
+        this.menuFrame.show();
+        
+        this.gameFrame = new JFrame("Minesweeper v1.0");
+        this.gameFrame.setIconImage(IconManager.loadImage("minesweeper_icon.png"));
+        this.gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        
+    }
+    
+    public JFrame getFrame() {
+        return this.gameFrame;
+    }
+    
+    
+    @Override
+    public void show() {
+        this.menuFrame.show();
+        
+    }
+    
+    @Override
+    public void hide() {
+        this.menuFrame.hide();
         
     }
     
@@ -87,6 +113,10 @@ public class Menu extends JPanel
         this.btnSmiley.setLocation(this.getWidth() / 2 - BTN_SIZE / 2, V_SPACING);
         this.btnSmiley.setBackground(DEFAULT);
         this.btnSmiley.setBorder(BorderFactory.outlined(4,HIGHLIGHTS,SHADOWS,2,SHADOWS,btnSmiley));
+        this.btnSmiley.addActionListener((e) -> {
+            this.hide();
+            new Game((short)10, (short)15, 25, this);
+        } );
         this.add(btnSmiley);
         
         final int SLIDER_WIDTH = template.getWidth() / 3;

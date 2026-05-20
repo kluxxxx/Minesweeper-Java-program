@@ -46,27 +46,30 @@ public class Game extends JPanel implements MouseListener{
     
 
     /**CONSTRUCTOR**/
-    public Game(short w, short h, int m) {
+    public Game(short w, short h, int m, Menu menu) {
         super();
         this.setLayout(null);
         this.setBackground(DEFAULT);
         
-        
+        this.menu = menu;
         
         this.intMinesRemaining = m;
         
         this.mineField = new Minefield(w, h, m, 32);
         
-        this.generateUI();
+        this.generateUI(menu.getFrame());
         
         this.player = new Player("darrell");
+        this.player.loadFromFile();
         
         this.intTimer = 0;
         this.hasClicked = false;
+        
+        
     }
     
     //create a method that will generate all the ui components for the playable game
-    private void generateUI() {        
+    private void generateUI(JFrame frame) {        
         
         
         //Generate the minefield grid
@@ -93,7 +96,16 @@ public class Game extends JPanel implements MouseListener{
         this.btnMenu.setSize(HUD_SIZE, HUD_SIZE);
         this.btnMenu.setLocation(this.hud.getWidth() /2 - HUD_SIZE/2, HUD_SPACING);
         this.btnMenu.setBorder(BorderFactory.outlined(4,HIGHLIGHTS,SHADOWS,2,SHADOWS,this.btnMenu));
+        this.btnMenu.addActionListener((e) ->{
+            
+            //System.out.println("fdscfgdfgb");
+            
+            this.menu.show();
+            
+        });
         this.hud.add(btnMenu);
+        
+        
         
         this.minesDisplay = new JLabel("010", JLabel.CENTER);
         this.minesDisplay.setOpaque(true);
@@ -124,15 +136,15 @@ public class Game extends JPanel implements MouseListener{
         this.setBorder(BorderFactory.custom(4,HIGHLIGHTS,SHADOWS,this));
         
         //Create a JFrame for output
-        this.frame = new JFrame("Minesweeper v1.0");
+        this.frame = frame;
+        this.frame.setResizable(true);
         this.frame.setContentPane(this);
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setIconImage(IconManager.loadImage("minesweeper_icon.png"));
+        
         //Resize the frame to include its content pane
         this.frame.pack();
         //Set the frame to visible
         this.frame.show();
-        
+        this.frame.setResizable(false);
         
     }
 
@@ -157,7 +169,7 @@ public class Game extends JPanel implements MouseListener{
         
         this.hasEnded = true;
         
-        this.menu = new Menu(200, 400);
+        
         
     }
     

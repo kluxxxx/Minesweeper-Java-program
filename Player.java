@@ -83,7 +83,7 @@ public class Player implements java.io.Serializable
     //create a to string that will return the users statistics to be displayed through gui elements as well as calculate the player winrate
     public String toString(){
         return "----------PLAYER STATS---------- \n Highscore: " + intHighScore + "S \n Total Games Played: " + intGamesPlayed + "\n Games Won: " + intGamesWon + "\n Games Lost: " + intGamesLost +
-        "\n Win Loss Ratio: " + String.format("%.2f",intGamesWon/intGamesLost * 1f) + "% \n Total Time Played: " + intTotalTimePlayed + "S";
+        /*"\n Win Loss Ratio: " + String.format("%.2f",intGamesWon/intGamesLost * 1f)+*/  "% \n Total Time Played: " + intTotalTimePlayed + "S";
     }
     
     
