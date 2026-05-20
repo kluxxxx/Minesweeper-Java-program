@@ -253,6 +253,7 @@ public class Minefield extends JPanel
             {
                 int intIconSize = this.intTileSize - 2;
                 Tile currentTile = this.arrGrid[j][i];
+                currentTile.setEnabled(false);
                 
                 if (currentTile.getIsMine() == true)
                 {
@@ -328,6 +329,6 @@ public class Minefield extends JPanel
     {
         int i = (int)(Math.random() * this.lstMines.size());
         
-        this.lstMines.get(i).setBackground(Color.RED);
+        //this.lstMines.get(i).setBackground(Color.RED);
     }
 }

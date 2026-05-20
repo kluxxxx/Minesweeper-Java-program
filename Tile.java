@@ -7,6 +7,8 @@
 
 //import JButton to make tiles clickable
 import javax.swing.JButton;
+import javax.swing.*;
+
 public class Tile extends JButton
 {
    // declare instance variables of type short for the position of the tile in the minefield
@@ -79,7 +81,9 @@ public class Tile extends JButton
        return this.tileState == TileState.OPEN; 
    }
    
-   public void revealTile() {
-       
+   @Override
+   public void setIcon(Icon icon) {
+       super.setIcon(icon);
+       super.setDisabledIcon(icon);
    }
 }

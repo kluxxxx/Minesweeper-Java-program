@@ -24,6 +24,7 @@ public class Game extends JPanel implements MouseListener{
     final int HUD_SIZE = HUD_HEIGHT - HUD_SPACING * 2;
     
     /**DECLARE SWING COMPONENTS**/
+    private JPanel bufferPane;
     private JFrame frame;
     private JPanel hud;
     private JButton btnMenu;
@@ -35,26 +36,26 @@ public class Game extends JPanel implements MouseListener{
     /**DECLARE GAME INSTANCE VARIABLES**/
     private Player player;
     private Minefield mineField;
-    private byte bytMinesRemaining = 40;
+    private Menu menu;
+    
+    private int intMinesRemaining = 40;
     private int intTimer;
-    private boolean isRunning;
+    private boolean hasEnded;
     private boolean hasClicked;
     private boolean isWon;
+    
 
     /**CONSTRUCTOR**/
-    public Game() {
-        super(null);
+    public Game(short w, short h, int m) {
+        super();
+        this.setLayout(null);
+        this.setBackground(DEFAULT);
         
-        this.frame = new JFrame("Minesweeper v1.0");
-        this.frame.setContentPane(this);
-        this.frame.setSize(400,600);
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setIconImage(IconManager.loadImage("minesweeper_icon.png"));
-        this.frame.setResizable(false);
-        //this.frame.setIconImage(new Image("textures//minesweeper_icon.png"));
-        this.frame.show();
         
-        this.mineField = new Minefield((short)10, (short)15, 40, 32);
+        
+        this.intMinesRemaining = m;
+        
+        this.mineField = new Minefield(w, h, m, 32);
         
         this.generateUI();
         
@@ -114,16 +115,25 @@ public class Game extends JPanel implements MouseListener{
         this.timer.setLocation(this.hud.getWidth() - this.timer.getWidth() - HUD_SPACING, HUD_SPACING);
         this.hud.add(timer);
         
-        
+        //Set the panel size accorddingly
         this.setPreferredSize(new Dimension(
             WIDTH,
             this.mineField.getY() + this.mineField.getHeight() + SPACING
         ));
-        
-        //Resize the frame to include its content pane
-        this.setBackground(DEFAULT);
-        this.frame.pack();
+        this.setSize(WIDTH, this.mineField.getY() + this.mineField.getHeight() + SPACING);
         this.setBorder(BorderFactory.custom(4,HIGHLIGHTS,SHADOWS,this));
+        
+        //Create a JFrame for output
+        this.frame = new JFrame("Minesweeper v1.0");
+        this.frame.setContentPane(this);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setIconImage(IconManager.loadImage("minesweeper_icon.png"));
+        //Resize the frame to include its content pane
+        this.frame.pack();
+        //Set the frame to visible
+        this.frame.show();
+        
+        
     }
 
 
@@ -137,40 +147,20 @@ public class Game extends JPanel implements MouseListener{
     public int getTime() {
         return this.timer.getTime();
     }
-    public boolean isWon() {
-        return this.isWon;
+   
+    //Call this method when the game ends
+    public void endGame(boolean hasWon) {
+        this.timer.end();
+        
+        player.updateStats(this, hasWon);
+        player.saveToFile();
+        
+        this.hasEnded = true;
+        
+        this.menu = new Menu(200, 400);
+        
     }
-
-    //create a method that will time the user from the start of the game to the end of there gmae and is stopped through victory or loss
-    public void startTimer() {
     
-        final int deltaT = 1000;
-        
-        this.intTimer = 0;
-        this.isRunning = true;
-        
-        while(this.isRunning) {
-            
-            //Update timer
-            this.intTimer++;
-            
-            //Update label
-            this.timer.setText(""+intTimer);
-            
-            
-            //Wait 1 second
-            try
-            {
-                Thread.sleep(deltaT);
-            }
-            catch (InterruptedException ie)
-            {
-                ie.printStackTrace();
-            }
-            
-        }
-        
-    }
     
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -179,7 +169,7 @@ public class Game extends JPanel implements MouseListener{
 
     @Override
     public void mouseEntered(MouseEvent e){
-        
+        this.repaint();
     }
 
     @Override
@@ -189,13 +179,17 @@ public class Game extends JPanel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e){
-        if (e.getButton() == MouseEvent.BUTTON1) {
+        if (!this.hasEnded && e.getButton() == MouseEvent.BUTTON1) {
             this.btnMenu.setIcon(IconManager.loadIcon("smiley_surprise.png", HUD_SIZE - 15, HUD_SIZE - 15));
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (this.hasEnded) {
+            return;
+        }
+        
         Tile clicked = (Tile) e.getSource();
         
         final MatteBorder OPEN_BORDER = new MatteBorder(1,1,0,0,SHADOWS);
@@ -217,18 +211,12 @@ public class Game extends JPanel implements MouseListener{
                 {
                     this.mineField.revealMines(clicked, OPEN_BORDER); 
                     this.btnMenu.setIcon(IconManager.loadIcon("smiley_lost.png", HUD_SIZE - 15, HUD_SIZE - 15));
-                    this.timer.end();
-                    
-                    player.updateStats(this, false);
-                    player.saveToFile();
+                    this.endGame(false);
                 }
                 else if (hasWon) {
                     System.out.println("yay"); 
                     this.btnMenu.setIcon(IconManager.loadIcon("smiley_won.png", HUD_SIZE - 15, HUD_SIZE - 15));
-                    this.timer.end();
-                    
-                    player.updateStats(this, true);
-                    player.saveToFile();
+                    this.endGame(true);
                 }
                 else {
                     this.btnMenu.setIcon(IconManager.loadIcon("smiley.png", HUD_SIZE - 15, HUD_SIZE - 15));
@@ -255,9 +243,11 @@ public class Game extends JPanel implements MouseListener{
             //System.out.println("RIGHT CLICK");
              
             
-            bytMinesRemaining += this.mineField.flagTile(clicked); 
+            this.intMinesRemaining += this.mineField.flagTile(clicked); 
             
-            System.out.println("" + bytMinesRemaining);
+            this.minesDisplay.setText(String.format("%03d", this.intMinesRemaining));
+            
+            System.out.println("" + intMinesRemaining);
         }
     }
     
